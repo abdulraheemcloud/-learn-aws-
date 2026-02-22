@@ -276,4 +276,1718 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 
 /* OVERVIEW BOX */
 .overview-box{background:linear-gradient(135deg,var(--blue-l),#f0f9ff);border:2px solid #bfdbfe;border-radius:var(--r);padding:20px 24px;margin-bottom:24px}
-[data-theme=
+[data-theme="dark"] .overview-box{background:linear-gradient(135deg,#1e3a8a,#1e40af);border-color:#3b82f6}
+.overview-box h4{font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+[data-theme="dark"] .overview-box h4{color:#60a5fa}
+.overview-box p{font-size:14px;color:var(--text2);line-height:1.8}
+
+/* OBJECTIVES */
+.objectives{margin-bottom:24px}
+.objectives h4{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.obj-list{display:flex;flex-direction:column;gap:8px}
+.obj-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);line-height:1.6}
+.obj-check{color:var(--green);font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* HANDS-ON STEPS */
+.lab-intro{background:var(--yellow-l);border:2px solid #fde68a;border-radius:var(--r);padding:14px 18px;margin-bottom:24px;font-size:13px;color:#92400e;display:flex;gap:10px;align-items:flex-start}
+[data-theme="dark"] .lab-intro{background:#713f12;border-color:#92400e;color:#fcd34d}
+.lab-intro-icon{font-size:18px;flex-shrink:0}
+.step-block{margin-bottom:32px}
+.step-hdr{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.step-num{min-width:36px;height:36px;background:var(--blue);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-txt h4{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px}
+.step-txt p{font-size:13px;color:var(--muted);line-height:1.6}
+.step-body{padding-left:50px}
+.step-body p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:12px}
+.step-body ul{margin-bottom:12px;padding-left:20px}
+.step-body ul li{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:4px}
+.note-box{background:var(--cyan-l);border-left:4px solid var(--cyan);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;margin-bottom:12px;font-size:13px;color:#164e63}
+[data-theme="dark"] .note-box{background:#164e63;border-color:var(--cyan);color:#cffafe}
+.note-box strong{display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--cyan)}
+.warn-box{background:var(--yellow-l);border-left:4px solid var(--yellow);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;margin-bottom:12px;font-size:13px;color:#78350f}
+[data-theme="dark"] .warn-box{background:#713f12;border-color:var(--yellow);color:#fcd34d}
+.warn-box strong{display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--yellow)}
+.tip-box{background:var(--green-l);border-left:4px solid var(--green);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;margin-bottom:12px;font-size:13px;color:#064e3b}
+[data-theme="dark"] .tip-box{background:#064e3b;border-color:var(--green);color:#d1fae5}
+.tip-box strong{display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--green)}
+
+/* CODE BLOCK */
+.code-wrap{background:#0f172a;border-radius:var(--r);overflow:hidden;margin-bottom:16px;border:2px solid #1e293b}
+.code-top{background:#1e293b;padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.code-lang{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:8px}
+.lang-dot{width:8px;height:8px;border-radius:50%}
+.dot-bash{background:#22d3ee}
+.dot-python{background:#fbbf24}
+.dot-json{background:#a78bfa}
+.dot-yaml{background:#4ade80}
+.copy-btn{background:transparent;border:1px solid #334155;border-radius:6px;color:#94a3b8;font-size:11px;font-family:'IBM Plex Mono',monospace;padding:4px 10px;cursor:pointer;transition:all .2s}
+.copy-btn:hover{border-color:#22d3ee;color:#22d3ee}
+.code-wrap pre{padding:20px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.8;color:#e2e8f0}
+.c-comment{color:#4a5568;font-style:italic}
+.c-cmd{color:#22d3ee}
+.c-flag{color:#fbbf24}
+.c-str{color:#4ade80}
+.c-kw{color:#f472b6}
+.c-num{color:#a78bfa}
+.c-var{color:#fb923c}
+
+/* SEPARATOR */
+.step-sep{height:2px;background:linear-gradient(90deg,var(--border),transparent);margin:24px 0}
+
+/* TASKS TAB */
+.task-filter-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filter-btn{padding:8px 18px;border:2px solid var(--border);border-radius:99px;background:var(--surface);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.filter-btn:hover{border-color:var(--blue);color:var(--blue)}
+.filter-btn.f-all.on{background:var(--text);border-color:var(--text);color:#fff}
+.filter-btn.f-easy.on{background:var(--green);border-color:var(--green);color:#fff}
+.filter-btn.f-medium.on{background:var(--yellow);border-color:var(--yellow);color:#fff}
+.filter-btn.f-hard.on{background:var(--red);border-color:var(--red);color:#fff}
+.tasks-grid{display:flex;flex-direction:column;gap:12px}
+.task-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:all .2s;cursor:pointer;box-shadow:var(--shadow)}
+.task-card:hover{border-color:var(--blue);box-shadow:var(--shadow-lg)}
+.task-card.completed{border-color:var(--green);background:var(--green-l)}
+.task-check{min-width:24px;height:24px;border:2.5px solid var(--border);border-radius:7px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0;font-size:14px;color:transparent}
+.task-check.done{background:var(--green);border-color:var(--green);color:#fff}
+.task-main{flex:1}
+.task-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.diff-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;letter-spacing:.8px;font-family:'IBM Plex Mono',monospace}
+.db-easy{background:var(--green-l);color:var(--green);border:1px solid #a7f3d0}
+.db-medium{background:var(--yellow-l);color:var(--yellow);border:1px solid #fde68a}
+.db-hard{background:var(--red-l);color:var(--red);border:1px solid #fecaca}
+.task-main h4{font-size:14px;font-weight:700;color:var(--text)}
+.task-main p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.task-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ttag{font-size:10px;padding:3px 8px;border-radius:6px;background:var(--blue-l);color:var(--blue);font-family:'IBM Plex Mono',monospace;font-weight:600;border:1px solid #bfdbfe}
+
+/* CHECKPOINT */
+.cp-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:24px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.cp-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid var(--border)}
+.cp-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cp-hdr h3{font-size:16px;font-weight:800;color:var(--text)}
+.cp-hdr span{font-size:12px;color:var(--muted)}
+.question-block{margin-bottom:20px}
+.q-text{font-size:14px;font-weight:600;color:var(--text);line-height:1.65;margin-bottom:12px}
+.q-num{color:var(--blue);font-family:'IBM Plex Mono',monospace;margin-right:6px}
+.options{display:flex;flex-direction:column;gap:8px}
+.opt{padding:12px 16px;border:2px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:all .2s;font-size:13px;color:var(--text2);display:flex;align-items:center;gap:10px;background:var(--surface)}
+.opt:hover{border-color:var(--blue);background:var(--blue-l)}
+.opt.correct{border-color:var(--green)!important;background:var(--green-l)!important;color:var(--green)!important}
+.opt.wrong{border-color:var(--red)!important;background:var(--red-l)!important;color:var(--red)!important}
+.opt.selected{border-color:var(--blue);background:var(--blue-l);color:var(--blue)}
+.opt-letter{min-width:28px;height:28px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;flex-shrink:0;border:2px solid var(--border)}
+.opt:hover .opt-letter{border-color:var(--blue)}
+
+/* Timer */
+.quiz-timer{position:fixed;top:80px;right:24px;background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow-lg);z-index:100;font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700}
+.timer-icon{font-size:20px}
+.timer-warning{color:var(--red);animation:pulse 1s infinite}
+.quiz-timer.hidden{display:none}
+
+/* LINUX COMMANDS */
+.cmd-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.cmd-filter{padding:7px 14px;border:2px solid var(--border);border-radius:99px;background:var(--surface);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.cmd-filter.on{background:var(--purple);border-color:var(--purple);color:#fff}
+.cmd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.cmd-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .2s;box-shadow:var(--shadow)}
+.cmd-card:hover{border-color:var(--purple);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.cmd-top{background:#0f172a;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.cmd-name{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:#22d3ee}
+.cmd-cat-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;background:rgba(255,255,255,.1);color:#94a3b8;font-family:'IBM Plex Mono',monospace;letter-spacing:.5px}
+.cmd-body{padding:14px 18px}
+.cmd-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:10px}
+.cmd-syntax{font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px;font-family:'IBM Plex Mono',monospace}
+.cmd-eg{background:#0f172a;border-radius:var(--r-sm);padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4ade80;line-height:1.7}
+
+/* FLASHCARDS */
+.flashcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.flashcard-wrap{perspective:1000px;height:220px;cursor:pointer}
+.flashcard{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 0.6s}
+.flashcard.flipped{transform:rotateY(180deg)}
+.flashcard-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--r);border:2px solid var(--border);background:var(--surface);padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow)}
+.flashcard-back{transform:rotateY(180deg);background:linear-gradient(135deg,var(--blue-l),#f0f9ff)}
+[data-theme="dark"] .flashcard-back{background:linear-gradient(135deg,#1e3a8a,#1e40af)}
+.fc-term{font-size:18px;font-weight:700;color:var(--text);margin-bottom:12px}
+.fc-category{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);background:var(--border);padding:4px 12px;border-radius:99px;margin-bottom:16px}
+.fc-def{font-size:14px;color:var(--text2);line-height:1.7}
+.fc-hint{position:absolute;bottom:16px;font-size:12px;color:var(--muted2);display:flex;align-items:center;gap:6px}
+.fc-icon{font-size:24px;margin-bottom:16px}
+
+/* Cheat Sheet */
+.cheatsheet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:24px}
+.cs-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.cs-hdr{background:linear-gradient(135deg,var(--purple),#6d28d9);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:10px}
+.cs-icon{font-size:24px}
+.cs-title{font-size:16px;font-weight:700}
+.cs-body{padding:20px}
+.cs-table{width:100%;border-collapse:collapse;font-size:13px}
+.cs-table th{text-align:left;padding:10px;background:var(--bg);color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;border-bottom:2px solid var(--border)}
+.cs-table td{padding:12px 10px;border-bottom:1px solid var(--border);color:var(--text2)}
+.cs-table tr:hover td{background:var(--blue-l)}
+.cs-cmd{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--cyan);background:var(--cyan-l);padding:2px 8px;border-radius:4px;font-size:12px}
+
+/* GLOSSARY */
+.glossary-list{display:flex;flex-direction:column;gap:12px}
+.gloss-item{background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:20px;transition:all 0.2s}
+.gloss-item:hover{border-color:var(--blue);transform:translateX(4px)}
+.gloss-term{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.gloss-abbr{font-size:10px;background:var(--aws);color:#000;padding:2px 8px;border-radius:99px;font-family:'IBM Plex Mono',monospace}
+.gloss-def{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* FINAL ASSESSMENT */
+.assess-intro{background:linear-gradient(135deg,#1e3a8a,#1d4ed8);color:#fff;border-radius:var(--r);padding:28px;margin-bottom:28px}
+.assess-intro h3{font-size:20px;font-weight:800;margin-bottom:10px}
+.assess-intro p{font-size:14px;opacity:.85;line-height:1.7;margin-bottom:16px}
+.assess-meta{display:flex;gap:20px;flex-wrap:wrap}
+.a-meta{background:rgba(255,255,255,.15);border-radius:var(--r-sm);padding:10px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.submit-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:linear-gradient(135deg,var(--aws),var(--aws2));color:#000;border:none;border-radius:var(--r-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;margin-top:20px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,153,0,.4)}
+.result-box{margin-top:20px;padding:20px 24px;border-radius:var(--r);display:none;flex-direction:column;gap:8px}
+.result-pass{background:var(--green-l);border:2px solid #6ee7b7;color:var(--green)}
+.result-fail{background:var(--red-l);border:2px solid #fca5a5;color:var(--red)}
+.score-big{font-size:48px;font-weight:800;font-family:'IBM Plex Mono',monospace;margin-bottom:4px}
+
+/* Certificate */
+.cert-preview{background:linear-gradient(135deg,#fef3c7,#fde68a);border:3px solid var(--aws);border-radius:var(--r);padding:40px;text-align:center;margin-top:24px;position:relative;overflow:hidden}
+.cert-preview::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,153,0,.1) 0%,transparent 70%);animation:rotate 20s linear infinite}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.cert-icon{font-size:64px;margin-bottom:16px;position:relative;z-index:1}
+.cert-title{font-size:24px;font-weight:800;color:#78350f;margin-bottom:8px;position:relative;z-index:1}
+.cert-name{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;position:relative;z-index:1;font-family:'IBM Plex Mono',monospace}
+.cert-date{font-size:14px;color:#92400e;position:relative;z-index:1}
+.cert-seal{position:absolute;bottom:20px;right:20px;width:80px;height:80px;background:var(--aws);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 4px 12px rgba(0,0,0,.2);animation:pulse 2s infinite;z-index:1}
+.download-cert-btn{margin-top:20px;padding:12px 24px;background:var(--text);color:#fff;border:none;border-radius:var(--r-sm);font-weight:700;cursor:pointer;transition:all 0.2s;position:relative;z-index:1}
+.download-cert-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+
+/* Toast Notification */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:2px solid var(--border);border-radius:var(--r);padding:16px 20px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;transform:translateX(400px);transition:transform 0.3s;z-index:1000}
+.toast.show{transform:translateX(0)}
+.toast-icon{font-size:24px}
+.toast-content{flex:1}
+.toast-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.toast-msg{font-size:13px;color:var(--muted)}
+.toast-xp{background:var(--aws);color:#000;padding:4px 12px;border-radius:99px;font-size:12px;font-weight:700;font-family:'IBM Plex Mono',monospace}
+
+/* Confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.confetti-piece{position:absolute;width:10px;height:10px;background:var(--aws);animation:confetti-fall 3s ease-out forwards}
+@keyframes confetti-fall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{min-width:auto}
+  .tab-btn{min-width:100px;font-size:12px;padding:8px 12px}
+  .stats-grid{grid-template-columns:1fr}
+  .progress-ring-wrap{flex-direction:column;text-align:center}
+  .cheatsheet-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hdr-right{gap:8px}
+  .progress-bar{width:100px}
+  .search-btn{display:none}
+  .mod-grid{grid-template-columns:1fr}
+  .flashcard-grid{grid-template-columns:1fr}
+  .quiz-timer{top:auto;bottom:20px;right:20px;left:20px;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Gradients -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- Header -->
+<header class="hdr">
+  <div class="hdr-inner">
+    <a href="#" class="logo" onclick="showToast('Welcome back! 👋', 'Continue your cloud journey', 0)">
+      <div class="logo-box">AWS</div>
+      <div>
+        <div class="logo-text">Junior Cloud Associate</div>
+        <div class="logo-sub">Interactive Learning Platform</div>
+      </div>
+    </a>
+    <div class="hdr-right">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="globalProgress" style="width:23%"></div></div>
+        <span class="prog-label" id="progressText">23% Complete</span>
+      </div>
+      <button class="search-btn" onclick="openSearch()" title="Search (Cmd/Ctrl + K)">
+        🔍
+        <span class="search-kbd">⌘K</span>
+      </button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">
+        🌙
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+  <div class="search-container" onclick="event.stopPropagation()">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="globalSearch" placeholder="Search modules, commands, flashcards..." onkeyup="performSearch(this.value)">
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="no-results">Type to search across all content...</div>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <span class="pulse"></span>
+        Interactive Learning Path
+      </div>
+      <h1>Master <em>AWS Cloud</em> Computing</h1>
+      <p class="hero-desc">From zero to certified. Hands-on labs, gamified challenges, and real-world scenarios designed for aspiring cloud engineers.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-n" id="totalXP">1,250</div>
+          <div class="stat-l">Total XP</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n" id="modulesDone">3/12</div>
+          <div class="stat-l">Modules</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n" id="dayStreak">5</div>
+          <div class="stat-l">Day Streak</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n" id="achievements">8</div>
+          <div class="stat-l">Badges</div>
+        </div>
+      </div>
+      <div class="level-badge">
+        🏆 Level 3: Cloud Explorer
+      </div>
+    </div>
+    <div class="xp-badge">
+      <div class="xp-level">Current Level</div>
+      <div class="xp-title">Cloud Explorer</div>
+      <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="xp-text">1,250 / 1,500 XP to next level</div>
+    </div>
+  </div>
+</section>
+
+<!-- Tabs -->
+<div class="tabs-wrap">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('modules')">📚 Modules</button>
+    <button class="tab-btn" onclick="switchTab('tasks')">🎯 Tasks <span class="tab-badge" id="taskBadge">3</span></button>
+    <button class="tab-btn" onclick="switchTab('practice')">🎮 Practice</button>
+    <button class="tab-btn" onclick="switchTab('resources')">📖 Resources</button>
+    <button class="tab-btn" onclick="switchTab('certification')">🏅 Certification</button>
+  </div>
+</div>
+
+<!-- Content -->
+<main class="content">
+
+  <!-- DASHBOARD TAB -->
+  <div class="tab-panel active" id="dashboard">
+    <h2 class="sec-title">📈 Learning Analytics</h2>
+    <p class="sec-sub">Track your progress, maintain your streak, and identify areas for improvement.</p>
+    <div class="divider-line"></div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value">12.5h</div>
+        <div class="stat-label">Total Study Time</div>
+        <div class="stat-change">↑ 2.3h this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">🎯</div>
+        <div class="stat-value">87%</div>
+        <div class="stat-label">Average Quiz Score</div>
+        <div class="stat-change">↑ 5% vs last week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">🔥</div>
+        <div class="stat-value" id="currentStreak">5</div>
+        <div class="stat-label">Current Streak</div>
+        <div class="stat-change">Best: 12 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">⚡</div>
+        <div class="stat-value">24</div>
+        <div class="stat-label">Labs Completed</div>
+        <div class="stat-change">3 pending</div>
+      </div>
+    </div>
+
+    <!-- Progress Ring -->
+    <div class="progress-ring-wrap">
+      <div class="ring-wrap">
+        <svg class="progress-ring-svg" viewBox="0 0 120 120">
+          <circle class="progress-ring-circle" cx="60" cy="60" r="54"/>
+          <circle class="progress-ring-progress" cx="60" cy="60" r="54" id="progressCircle" style="stroke-dashoffset: 260"/>
+        </svg>
+        <div class="ring-text">
+          <div class="ring-percent" id="ringPercent">23%</div>
+          <div class="ring-label">Complete</div>
+        </div>
+      </div>
+      <div class="progress-ring-details">
+        <div class="prd-title">Module Progress Breakdown</div>
+        <div class="prd-item">
+          <span class="prd-name">Cloud Foundations</span>
+          <div class="prd-bar"><div class="prd-fill" style="width:100%"></div></div>
+          <span class="prd-pct">100%</span>
+        </div>
+        <div class="prd-item">
+          <span class="prd-name">EC2 & Compute</span>
+          <div class="prd-bar"><div class="prd-fill" style="width:85%"></div></div>
+          <span class="prd-pct">85%</span>
+        </div>
+        <div class="prd-item">
+          <span class="prd-name">S3 Storage</span>
+          <div class="prd-bar"><div class="prd-fill" style="width:60%"></div></div>
+          <span class="prd-pct">60%</span>
+        </div>
+        <div class="prd-item">
+          <span class="prd-name">VPC Networking</span>
+          <div class="prd-bar"><div class="prd-fill" style="width:30%"></div></div>
+          <span class="prd-pct">30%</span>
+        </div>
+        <div class="prd-item">
+          <span class="prd-name">IAM & Security</span>
+          <div class="prd-bar"><div class="prd-fill" style="width:0%"></div></div>
+          <span class="prd-pct">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Streak Calendar -->
+    <div class="streak-section">
+      <div class="streak-title">🔥 Contribution Streak</div>
+      <div class="streak-fire">
+        <span>🔥</span>
+        <span class="streak-count" id="streakCount">5</span>
+        <span class="streak-label">days current streak</span>
+      </div>
+      <div class="streak-grid" id="streakGrid">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px">
+      🏅 Recent Achievements
+    </h3>
+    <div class="achievements-grid" id="achievementsGrid">
+      <div class="ach-card unlocked">
+        <span class="ach-icon">🌱</span>
+        <div class="ach-name">First Steps</div>
+        <div class="ach-desc">Complete your first module</div>
+      </div>
+      <div class="ach-card unlocked">
+        <span class="ach-icon">🖥️</span>
+        <div class="ach-name">EC2 Master</div>
+        <div class="ach-desc">Launch 10 EC2 instances</div>
+      </div>
+      <div class="ach-card unlocked">
+        <span class="ach-icon">📦</span>
+        <div class="ach-name">Storage Expert</div>
+        <div class="ach-desc">Master S3 operations</div>
+      </div>
+      <div class="ach-card">
+        <span class="ach-icon">🔒</span>
+        <div class="ach-name">Security Guardian</div>
+        <div class="ach-desc">Complete IAM module</div>
+      </div>
+      <div class="ach-card">
+        <span class="ach-icon">⚡</span>
+        <div class="ach-name">Speed Demon</div>
+        <div class="ach-desc">Complete quiz in <2min</div>
+      </div>
+      <div class="ach-card unlocked">
+        <span class="ach-icon">🔥</span>
+        <div class="ach-name">On Fire</div>
+        <div class="ach-desc">5-day login streak</div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin:32px 0 16px;display:flex;align-items:center;gap:8px">
+      🏆 Leaderboard
+    </h3>
+    <div class="leaderboard">
+      <div class="lb-header">
+        <span class="lb-title">Top Cloud Learners</span>
+        <div class="lb-tabs">
+          <button class="lb-tab active">Weekly</button>
+          <button class="lb-tab">All Time</button>
+        </div>
+      </div>
+      <div class="lb-list">
+        <div class="lb-item">
+          <div class="lb-rank gold">1</div>
+          <div class="lb-avatar">AK</div>
+          <div class="lb-info">
+            <div class="lb-name">Arun Kumar</div>
+            <div class="lb-level">Level 5: Cloud Architect</div>
+          </div>
+          <div class="lb-xp">3,420 XP</div>
+        </div>
+        <div class="lb-item">
+          <div class="lb-rank silver">2</div>
+          <div class="lb-avatar">PS</div>
+          <div class="lb-info">
+            <div class="lb-name">Priya Sharma</div>
+            <div class="lb-level">Level 4: Solutions Architect</div>
+          </div>
+          <div class="lb-xp">2,890 XP</div>
+        </div>
+        <div class="lb-item">
+          <div class="lb-rank bronze">3</div>
+          <div class="lb-avatar">RJ</div>
+          <div class="lb-info">
+            <div class="lb-name">Rahul Jain</div>
+            <div class="lb-level">Level 4: Solutions Architect</div>
+          </div>
+          <div class="lb-xp">2,650 XP</div>
+        </div>
+        <div class="lb-item lb-you">
+          <div class="lb-rank">4</div>
+          <div class="lb-avatar" style="background:var(--aws);color:#000">YOU</div>
+          <div class="lb-info">
+            <div class="lb-name">You (Guest)</div>
+            <div class="lb-level">Level 3: Cloud Explorer</div>
+          </div>
+          <div class="lb-xp">1,250 XP</div>
+        </div>
+        <div class="lb-item">
+          <div class="lb-rank">5</div>
+          <div class="lb-avatar">SK</div>
+          <div class="lb-info">
+            <div class="lb-name">Sanjay K</div>
+            <div class="lb-level">Level 3: Cloud Explorer</div>
+          </div>
+          <div class="lb-xp">1,180 XP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULES TAB -->
+  <div class="tab-panel" id="modules">
+    <h2 class="sec-title">📚 Learning Modules</h2>
+    <p class="sec-sub">12 comprehensive modules covering all AWS Junior Associate exam objectives. Click any module to start learning.</p>
+    <div class="divider-line"></div>
+    
+    <div class="mod-grid" id="modulesGrid">
+      <!-- Module 1 -->
+      <div class="mod-card" onclick="openModule(1)">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--green-l);color:var(--green)">☁️</div>
+          <div class="mod-info">
+            <h3>01. Cloud Foundations</h3>
+            <p>AWS Global Infrastructure, Regions, AZs, and cloud deployment models</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 3 Labs</span>
+          <span class="mod-pill pill-task">📝 5 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-done">Completed</span>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="mod-card" onclick="openModule(2)">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--blue-l);color:var(--blue)">🖥️</div>
+          <div class="mod-info">
+            <h3>02. EC2 & Compute Services</h3>
+            <p>Virtual servers, instance types, AMIs, and pricing models</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 4 Labs</span>
+          <span class="mod-pill pill-task">📝 8 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-active">In Progress</span>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="mod-card" onclick="openModule(3)">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--purple-l);color:var(--purple)">📦</div>
+          <div class="mod-info">
+            <h3>03. S3 & Storage</h3>
+            <p>Object storage, buckets, storage classes, and lifecycle policies</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 3 Labs</span>
+          <span class="mod-pill pill-task">📝 6 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-todo">Not Started</span>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="mod-card" onclick="openModule(4)">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--cyan-l);color:var(--cyan)">🌐</div>
+          <div class="mod-info">
+            <h3>04. VPC & Networking</h3>
+            <p>Subnets, route tables, internet gateways, and security groups</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 4 Labs</span>
+          <span class="mod-pill pill-task">📝 7 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-todo">Not Started</span>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="mod-card locked">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--red-l);color:var(--red)">🔒</div>
+          <div class="mod-info">
+            <h3>05. IAM & Security</h3>
+            <p>Users, groups, roles, policies, and MFA configuration</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 3 Labs</span>
+          <span class="mod-pill pill-task">📝 6 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-todo">Locked</span>
+        </div>
+      </div>
+
+      <!-- Module 6 -->
+      <div class="mod-card locked">
+        <div class="mod-top">
+          <div class="mod-icon" style="background:var(--yellow-l);color:var(--yellow)">🗄️</div>
+          <div class="mod-info">
+            <h3>06. RDS & Databases</h3>
+            <p>Relational databases, Multi-AZ, read replicas, and backup</p>
+          </div>
+        </div>
+        <div class="mod-bottom">
+          <span class="mod-pill pill-lab">🧪 3 Labs</span>
+          <span class="mod-pill pill-task">📝 5 Tasks</span>
+          <span class="mod-pill pill-quiz">✓ Quiz</span>
+          <span class="mod-status s-todo">Locked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASKS TAB -->
+  <div class="tab-panel" id="tasks">
+    <h2 class="sec-title">🎯 Hands-On Challenges</h2>
+    <p class="sec-sub">Complete real-world AWS tasks to earn XP and badges. Filter by difficulty level.</p>
+    <div class="divider-line"></div>
+
+    <div class="task-filter-bar">
+      <button class="filter-btn f-all on" onclick="filterTasks('all')">All Tasks</button>
+      <button class="filter-btn f-easy" onclick="filterTasks('easy')">🟢 Easy</button>
+      <button class="filter-btn f-medium" onclick="filterTasks('medium')">🟡 Medium</button>
+      <button class="filter-btn f-hard" onclick="filterTasks('hard')">🔴 Hard</button>
+    </div>
+
+    <div class="tasks-grid" id="tasksGrid">
+      <div class="task-card" data-diff="easy">
+        <div class="task-check" onclick="toggleTask(this, 50)"></div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-easy">EASY</span>
+            <h4>Launch Your First EC2 Instance</h4>
+          </div>
+          <p>Create a t2.micro instance with Amazon Linux 2, configure security group for SSH access, and connect via SSH.</p>
+          <div class="task-tags">
+            <span class="ttag">EC2</span>
+            <span class="ttag">SSH</span>
+            <span class="ttag">Linux</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card" data-diff="easy">
+        <div class="task-check done" onclick="toggleTask(this, 50)">✓</div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-easy">EASY</span>
+            <h4>Create S3 Bucket with Versioning</h4>
+          </div>
+          <p>Create a bucket, enable versioning, upload multiple versions of a file, and restore a previous version.</p>
+          <div class="task-tags">
+            <span class="ttag">S3</span>
+            <span class="ttag">Storage</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card" data-diff="medium">
+        <div class="task-check" onclick="toggleTask(this, 100)"></div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-medium">MEDIUM</span>
+            <h4>Configure VPC with Public & Private Subnets</h4>
+          </div>
+          <p>Create custom VPC with 2 AZs, public subnet with IGW, private subnet with NAT Gateway, and route tables.</p>
+          <div class="task-tags">
+            <span class="ttag">VPC</span>
+            <span class="ttag">Networking</span>
+            <span class="ttag">High Availability</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card" data-diff="medium">
+        <div class="task-check done" onclick="toggleTask(this, 100)">✓</div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-medium">MEDIUM</span>
+            <h4>Setup Application Load Balancer</h4>
+          </div>
+          <p>Deploy 2 EC2 instances, install web server, create target group, and configure ALB with health checks.</p>
+          <div class="task-tags">
+            <span class="ttag">ELB</span>
+            <span class="ttag">EC2</span>
+            <span class="ttag">Auto Scaling</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card" data-diff="hard">
+        <div class="task-check" onclick="toggleTask(this, 200)"></div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-hard">HARD</span>
+            <h4>Build 3-Tier Architecture</h4>
+          </div>
+          <p>Implement web tier (ALB+EC2), app tier (private EC2), and data tier (RDS) with proper security groups.</p>
+          <div class="task-tags">
+            <span class="ttag">Architecture</span>
+            <span class="ttag">RDS</span>
+            <span class="ttag">Security</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-card" data-diff="hard">
+        <div class="task-check" onclick="toggleTask(this, 200)"></div>
+        <div class="task-main">
+          <div class="task-head">
+            <span class="diff-badge db-hard">HARD</span>
+            <h4>Disaster Recovery Setup</h4>
+          </div>
+          <p>Configure cross-region RDS read replica, S3 cross-region replication, and Route 53 failover routing.</p>
+          <div class="task-tags">
+            <span class="ttag">DR</span>
+            <span class="ttag">Route53</span>
+            <span class="ttag">Multi-Region</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRACTICE TAB -->
+  <div class="tab-panel" id="practice">
+    <h2 class="sec-title">🎮 Practice Arena</h2>
+    <p class="sec-sub">Flashcards, quizzes, and timed challenges to reinforce your learning.</p>
+    <div class="divider-line"></div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px">🎴 Flashcards</h3>
+    <div class="flashcard-grid">
+      <div class="flashcard-wrap" onclick="flipCard(this)">
+        <div class="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <span class="fc-icon">☁️</span>
+            <div class="fc-category">Compute</div>
+            <div class="fc-term">Amazon EC2</div>
+            <div class="fc-hint">💡 Click to flip</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-def">
+              <strong>Elastic Compute Cloud</strong><br><br>
+              Web service providing resizable compute capacity in the cloud. Supports various instance types optimized for compute, memory, storage, or GPU workloads.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-wrap" onclick="flipCard(this)">
+        <div class="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <span class="fc-icon">📦</span>
+            <div class="fc-category">Storage</div>
+            <div class="fc-term">Amazon S3</div>
+            <div class="fc-hint">💡 Click to flip</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-def">
+              <strong>Simple Storage Service</strong><br><br>
+              Object storage service offering industry-leading scalability, availability, and performance. Stores data as objects in buckets with 99.999999999% durability.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-wrap" onclick="flipCard(this)">
+        <div class="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <span class="fc-icon">🗄️</span>
+            <div class="fc-category">Database</div>
+            <div class="fc-term">Amazon RDS</div>
+            <div class="fc-hint">💡 Click to flip</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-def">
+              <strong>Relational Database Service</strong><br><br>
+              Managed service for relational databases (MySQL, PostgreSQL, Oracle, SQL Server, MariaDB). Handles patching, backups, replication automatically.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flashcard-wrap" onclick="flipCard(this)">
+        <div class="flashcard">
+          <div class="flashcard-face flashcard-front">
+            <span class="fc-icon">🔒</span>
+            <div class="fc-category">Security</div>
+            <div class="fc-term">IAM Role</div>
+            <div class="fc-hint">💡 Click to flip</div>
+          </div>
+          <div class="flashcard-face flashcard-back">
+            <div class="fc-def">
+              <strong>Identity and Access Management</strong><br><br>
+              An IAM entity that defines permissions for AWS resources. Unlike users, roles aren't associated with specific credentials and can be assumed by trusted entities.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin:32px 0 16px">⏱️ Timed Quiz Challenge</h3>
+    <div class="cp-card">
+      <div class="cp-hdr">
+        <div class="cp-icon" style="background:var(--red-l);color:var(--red)">⚡</div>
+        <div>
+          <h3>Speed Challenge: EC2 Fundamentals</h3>
+          <span>5 questions • 3 minutes • 100 XP reward</span>
+        </div>
+        <button class="submit-btn" onclick="startTimedQuiz()" style="margin:0;padding:10px 20px;font-size:13px">Start Challenge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCES TAB -->
+  <div class="tab-panel" id="resources">
+    <h2 class="sec-title">📖 Quick Reference</h2>
+    <p class="sec-sub">Cheat sheets, command references, and glossary for quick lookup.</p>
+    <div class="divider-line"></div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:16px">📋 Cheat Sheets</h3>
+    <div class="cheatsheet-grid">
+      <div class="cs-card">
+        <div class="cs-hdr">
+          <span class="cs-icon">🖥️</span>
+          <span class="cs-title">EC2 CLI Commands</span>
+        </div>
+        <div class="cs-body">
+          <table class="cs-table">
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">run-instances</span></td>
+              <td>Launch new EC2 instance</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">describe-instances</span></td>
+              <td>List all instances</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">start-instances</span></td>
+              <td>Start stopped instance</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">stop-instances</span></td>
+              <td>Stop running instance</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">terminate-instances</span></td>
+              <td>Delete instance permanently</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-hdr">
+          <span class="cs-icon">📦</span>
+          <span class="cs-title">S3 CLI Commands</span>
+        </div>
+        <div class="cs-body">
+          <table class="cs-table">
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">mb</span></td>
+              <td>Make bucket (create)</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">rb</span></td>
+              <td>Remove bucket</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">cp</span></td>
+              <td>Copy files to/from S3</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">sync</span></td>
+              <td>Sync local dir with S3</td>
+            </tr>
+            <tr>
+              <td><span class="cs-cmd">ls</span></td>
+              <td>List buckets or objects</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin:32px 0 16px">📚 AWS Glossary</h3>
+    <div class="glossary-list">
+      <div class="gloss-item">
+        <div class="gloss-term">
+          Availability Zone (AZ)
+          <span class="gloss-abbr">AZ</span>
+        </div>
+        <div class="gloss-def">One or more discrete data centers with redundant power, networking, and connectivity in an AWS Region. AZs are physically separated to protect against disasters.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">
+          Elastic Block Store
+          <span class="gloss-abbr">EBS</span>
+        </div>
+        <div class="gloss-def">Persistent block storage volumes for use with Amazon EC2 instances. EBS volumes are network-attached and persist independently from the life of an instance.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">
+          Virtual Private Cloud
+          <span class="gloss-abbr">VPC</span>
+        </div>
+        <div class="gloss-def">Logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network that you define. Complete control over IP addressing, subnets, and routing.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">
+          Identity Access Management
+          <span class="gloss-abbr">IAM</span>
+        </div>
+        <div class="gloss-def">Web service for securely controlling access to AWS resources. Enables you to manage users, security credentials, and permissions to access AWS resources.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:18px;font-weight:700;color:var(--text);margin:32px 0 16px">🐧 Essential Linux Commands</h3>
+    <div class="cmd-filter-bar">
+      <button class="cmd-filter on" onclick="filterCmds('all')">All</button>
+      <button class="cmd-filter" onclick="filterCmds('nav')">Navigation</button>
+      <button class="cmd-filter" onclick="filterCmds('file')">File Ops</button>
+      <button class="cmd-filter" onclick="filterCmds('sys')">System</button>
+      <button class="cmd-filter" onclick="filterCmds('net')">Network</button>
+    </div>
+    <div class="cmd-grid" id="cmdGrid">
+      <div class="cmd-card" data-cat="nav">
+        <div class="cmd-top">
+          <span class="cmd-name">ls</span>
+          <span class="cmd-cat-badge">NAV</span>
+        </div>
+        <div class="cmd-body">
+          <div class="cmd-desc">List directory contents</div>
+          <div class="cmd-syntax">ls [options] [directory]</div>
+          <div class="cmd-eg">$ ls -la<br>$ ls -lh /var/log</div>
+        </div>
+      </div>
+      <div class="cmd-card" data-cat="nav">
+        <div class="cmd-top">
+          <span class="cmd-name">cd</span>
+          <span class="cmd-cat-badge">NAV</span>
+        </div>
+        <div class="cmd-body">
+          <div class="cmd-desc">Change directory</div>
+          <div class="cmd-syntax">cd [directory]</div>
+          <div class="cmd-eg">$ cd /home/ec2-user<br>$ cd ..<br>$ cd ~</div>
+        </div>
+      </div>
+      <div class="cmd-card" data-cat="file">
+        <div class="cmd-top">
+          <span class="cmd-name">chmod</span>
+          <span class="cmd-cat-badge">FILE</span>
+        </div>
+        <div class="cmd-body">
+          <div class="cmd-desc">Change file permissions</div>
+          <div class="cmd-syntax">chmod [mode] [file]</div>
+          <div class="cmd-eg">$ chmod 755 script.sh<br>$ chmod +x file</div>
+        </div>
+      </div>
+      <div class="cmd-card" data-cat="sys">
+        <div class="cmd-top">
+          <span class="cmd-name">systemctl</span>
+          <span class="cmd-cat-badge">SYS</span>
+        </div>
+        <div class="cmd-body">
+          <div class="cmd-desc">Control systemd services</div>
+          <div class="cmd-syntax">systemctl [command] [service]</div>
+          <div class="cmd-eg">$ systemctl start httpd<br>$ systemctl enable nginx</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATION TAB -->
+  <div class="tab-panel" id="certification">
+    <h2 class="sec-title">🏅 Final Assessment</h2>
+    <p class="sec-sub">Complete the final exam to earn your certificate. 65 questions, 130 minutes.</p>
+    <div class="divider-line"></div>
+
+    <div class="assess-intro">
+      <h3>🎓 AWS Junior Cloud Associate Certification</h3>
+      <p>This comprehensive exam tests your knowledge across all 12 modules. Score 70% or higher to earn your certificate and unlock the "Certified Cloud Associate" badge.</p>
+      <div class="assess-meta">
+        <span class="a-meta">⏱️ 130 Minutes</span>
+        <span class="a-meta">📝 65 Questions</span>
+        <span class="a-meta">🎯 70% to Pass</span>
+        <span class="a-meta">🏆 500 XP Reward</span>
+      </div>
+    </div>
+
+    <div class="cp-card" id="examCard">
+      <div class="cp-hdr">
+        <div class="cp-icon" style="background:var(--blue-l);color:var(--blue)">📋</div>
+        <div>
+          <h3>Practice Exam 1: Cloud Concepts</h3>
+          <span>Question 1 of 65</span>
+        </div>
+      </div>
+      
+      <div class="question-block">
+        <div class="q-text"><span class="q-num">Q1.</span> Which AWS service provides a virtual network dedicated to your AWS account?</div>
+        <div class="options">
+          <div class="opt" onclick="selectOption(this, false)">
+            <span class="opt-letter">A</span>
+            <span>Amazon EC2</span>
+          </div>
+          <div class="opt" onclick="selectOption(this, true)">
+            <span class="opt-letter">B</span>
+            <span>Amazon VPC</span>
+          </div>
+          <div class="opt" onclick="selectOption(this, false)">
+            <span class="opt-letter">C</span>
+            <span>AWS Lambda</span>
+          </div>
+          <div class="opt" onclick="selectOption(this, false)">
+            <span class="opt-letter">D</span>
+            <span>Amazon Route 53</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="submitExam()">Submit Exam</button>
+      
+      <div class="result-box" id="examResult">
+        <div class="score-big">85%</div>
+        <div>Congratulations! You passed the exam.</div>
+        <div style="font-size:13px;opacity:0.8;margin-top:8px">You earned 500 XP and the Certified Cloud Associate badge!</div>
+      </div>
+    </div>
+
+    <div class="cert-preview" id="certPreview" style="display:none">
+      <div class="cert-icon">📜</div>
+      <div class="cert-title">Certificate of Completion</div>
+      <div class="cert-name">Junior Cloud Computing Associate</div>
+      <div class="cert-date">Awarded on February 22, 2026</div>
+      <div class="cert-seal">✓</div>
+      <button class="download-cert-btn" onclick="downloadCertificate()">📥 Download Certificate</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- Module Modal -->
+<div class="overlay" id="moduleModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <div class="modal-title-wrap">
+        <div class="modal-icon" id="modalIcon" style="background:var(--blue-l);color:var(--blue)">🖥️</div>
+        <div>
+          <div class="modal-title" id="modalTitle">EC2 & Compute Services</div>
+          <div class="modal-sub">Module 02 • 4 Labs • 8 Tasks • Quiz</div>
+        </div>
+      </div>
+      <button class="bookmark-btn" onclick="toggleBookmark(this)" title="Bookmark this module">🔖</button>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="lesson-nav">
+        <button class="lnav-btn active" onclick="switchLesson(0)">📖 Overview</button>
+        <button class="lnav-btn" onclick="switchLesson(1)">🧪 Hands-On Lab</button>
+        <button class="lnav-btn" onclick="switchLesson(2)">✅ Checkpoint</button>
+      </div>
+
+      <!-- Lesson 1: Overview -->
+      <div class="lpane active" id="lesson0">
+        <div class="overview-box">
+          <h4>📋 Module Overview</h4>
+          <p>Amazon EC2 (Elastic Compute Cloud) provides resizable compute capacity in the cloud. This module covers instance types, AMIs, security groups, key pairs, and pricing models including On-Demand, Reserved, and Spot instances.</p>
+        </div>
+        
+        <div class="objectives">
+          <h4>🎯 Learning Objectives</h4>
+          <div class="obj-list">
+            <div class="obj-item">
+              <span class="obj-check">✓</span>
+              <span>Understand EC2 instance families and their use cases (T3, M5, C5, R5, etc.)</span>
+            </div>
+            <div class="obj-item">
+              <span class="obj-check">✓</span>
+              <span>Launch and configure EC2 instances with proper security groups</span>
+            </div>
+            <div class="obj-item">
+              <span class="obj-check">✓</span>
+              <span>Connect to instances using SSH (Linux) and RDP (Windows)</span>
+            </div>
+            <div class="obj-item">
+              <span class="obj-check">✓</span>
+              <span>Understand EC2 pricing models and cost optimization strategies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong>💡 Pro Tip</strong>
+          Always use t3.micro or t2.micro for free tier eligibility when learning. Set up billing alerts to avoid unexpected charges.
+        </div>
+      </div>
+
+      <!-- Lesson 2: Hands-On -->
+      <div class="lpane" id="lesson1">
+        <div class="lab-intro">
+          <span class="lab-intro-icon">🧪</span>
+          <div><strong>Lab Environment:</strong> You will launch a Linux EC2 instance, configure security groups, and connect via SSH. Estimated time: 30 minutes.</div>
+        </div>
+
+        <div class="step-block">
+          <div class="step-hdr">
+            <div class="step-num">01</div>
+            <div class="step-txt">
+              <h4>Launch EC2 Instance</h4>
+              <p>Navigate to EC2 Dashboard and launch a new instance</p>
+            </div>
+          </div>
+          <div class="step-body">
+            <p>1. Sign in to AWS Management Console<br>
+            2. Navigate to EC2 → Instances → Launch Instance<br>
+            3. Choose <strong>Amazon Linux 2 AMI</strong> (Free tier eligible)<br>
+            4. Select <strong>t2.micro</strong> instance type</p>
+            
+            <div class="code-wrap">
+              <div class="code-top">
+                <span class="code-lang"><span class="lang-dot dot-bash"></span>AWS CLI Equivalent</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>aws ec2 run-instances \
+  --image-id ami-0c55b159cbfafe1f0 \
+  --count 1 \
+  --instance-type t2.micro \
+  --key-name MyKeyPair \
+  --security-group-ids sg-903004f8 \
+  --subnet-id subnet-6e7f829e</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-sep"></div>
+
+        <div class="step-block">
+          <div class="step-hdr">
+            <div class="step-num">02</div>
+            <div class="step-txt">
+              <h4>Configure Security Group</h4>
+              <p>Allow SSH access from your IP address only</p>
+            </div>
+          </div>
+          <div class="step-body">
+            <div class="warn-box">
+              <strong>⚠️ Security Warning</strong>
+              Never open SSH (port 22) to 0.0.0.0/0 (anywhere). Always restrict to your specific IP address or VPN range.
+            </div>
+            <p>Inbound Rules:<br>
+            • Type: SSH (22)<br>
+            • Source: My IP (auto-detects your public IP)<br>
+            • Description: SSH access from office</p>
+          </div>
+        </div>
+
+        <div class="step-sep"></div>
+
+        <div class="step-block">
+          <div class="step-hdr">
+            <div class="step-num">03</div>
+            <div class="step-txt">
+              <h4>Connect via SSH</h4>
+              <p>Use your private key to establish secure connection</p>
+            </div>
+          </div>
+          <div class="step-body">
+            <div class="code-wrap">
+              <div class="code-top">
+                <span class="code-lang"><span class="lang-dot dot-bash"></span>Terminal</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre><span class="c-comment"># Set correct permissions on key file</span>
+chmod <span class="c-num">400</span> MyKeyPair.pem
+
+<span class="c-comment"># Connect to instance</span>
+ssh -i <span class="c-str">"MyKeyPair.pem"</span> ec2-user@<span class="c-var">&lt;public-ip&gt;</span></pre>
+            </div>
+            
+            <div class="tip-box">
+              <strong>✅ Success Check</strong>
+              You should see the Amazon Linux 2 welcome message and prompt: <code>[ec2-user@ip-172-31-0-1 ~]$</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lesson 3: Quiz -->
+      <div class="lpane" id="lesson2">
+        <div class="cp-card">
+          <div class="cp-hdr">
+            <div class="cp-icon" style="background:var(--green-l);color:var(--green)">✓</div>
+            <div>
+              <h3>Module Checkpoint</h3>
+              <span>Test your knowledge • 5 questions</span>
+            </div>
+          </div>
+          
+          <div class="question-block">
+            <div class="q-text"><span class="q-num">Q1.</span> Which EC2 pricing model provides the steepest discount but can be interrupted?</div>
+            <div class="options">
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">A</span>
+                <span>On-Demand</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">B</span>
+                <span>Reserved Instances</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, true)">
+                <span class="opt-letter">C</span>
+                <span>Spot Instances</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">D</span>
+                <span>Dedicated Hosts</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-block">
+            <div class="q-text"><span class="q-num">Q2.</span> What is the maximum size of an EBS volume?</div>
+            <div class="options">
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">A</span>
+                <span>1 TB</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">B</span>
+                <span>8 TB</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, true)">
+                <span class="opt-letter">C</span>
+                <span>16 TB</span>
+              </div>
+              <div class="opt" onclick="selectOption(this, false)">
+                <span class="opt-letter">D</span>
+                <span>64 TB</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="submit-btn" onclick="submitQuiz()">Submit Answers</button>
+          
+          <div class="result-box" id="quizResult">
+            <div class="score-big">100%</div>
+            <div>Perfect score! +50 XP earned</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz Timer -->
+<div class="quiz-timer hidden" id="quizTimer">
+  <span class="timer-icon">⏱️</span>
+  <span id="timerDisplay">03:00</span>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">🏆</span>
+  <div class="toast-content">
+    <div class="toast-title" id="toastTitle">Achievement Unlocked!</div>
+    <div class="toast-msg" id="toastMsg">You completed your first module</div>
+  </div>
+  <span class="toast-xp" id="toastXP">+100 XP</span>
+</div>
+
+<!-- Confetti Container -->
+<div class="confetti" id="confetti"></div>
+
+<script>
+// State Management
+let userXP = 1250;
+let userLevel = 3;
+let currentStreak = 5;
+let completedTasks = 2;
+let totalTasks = 6;
+let bookmarks = new Set();
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  generateStreakGrid();
+  updateProgress();
+  
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape') {
+      closeSearch();
+      closeModal();
+    }
+  });
+});
+
+// Theme Toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const btn = document.getElementById('themeBtn');
+  const current = html.getAttribute('data-theme');
+  
+  if (current === 'dark') {
+    html.removeAttribute('data-theme');
+    btn.textContent = '🌙';
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    btn.textContent = '☀️';
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+// Load saved theme
+if (localStorage.getItem('theme') === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.getElementById('themeBtn').textContent = '☀️';
+}
+
+// Tab Switching
+function switchTab(tabName) {
+  // Update buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent.toLowerCase().includes(tabName)) {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Update panels
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.remove('active');
+  });
+  document.getElementById(tabName).classList.add('active');
+  
+  // Update URL hash for sharing
+  window.location.hash = tabName;
+}
+
+// Check URL hash on load
+if (window.location.hash) {
+  const tab = window.location.hash.substring(1);
+  if (document.getElementById(tab)) {
+    switchTab(tab);
+  }
+}
+
+// Module Modal
+function openModule(moduleId) {
+  const modal = document.getElementById('moduleModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  
+  // Load module content based on ID
+  const titles = {
+    1: 'Cloud Foundations',
+    2: 'EC2 & Compute Services',
+    3: 'S3 & Storage',
+    4: 'VPC & Networking'
+  };
+  
+  if (titles[moduleId]) {
+    document.getElementById('modalTitle').textContent = titles[moduleId];
+  }
+}
+
+function closeModal(e) {
+  if (!e || e.target.id === 'moduleModal') {
+    document.getElementById('moduleModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Lesson Switching
+function switchLesson(index) {
+  document.querySelectorAll('.lnav-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.lpane').forEach((pane, i) => {
+    pane.classList.toggle('active', i === index);
+  });
+}
+
+// Task Filtering
+function filterTasks(difficulty) {
+  // Update buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('on');
+  });
+  event.target.classList.add('on');
+  
+  // Filter cards
+  document.querySelectorAll('.task-card').forEach(card => {
+    if (difficulty === 'all' || card.dataset.diff === difficulty) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Task Completion
+function toggleTask(checkbox, xp) {
+  checkbox.classList.toggle('done');
+  const isDone = checkbox.classList.contains('done');
+  
+  if (isDone) {
+    checkbox.textContent = '✓';
+    addXP(xp);
+    showToast('Task Completed!', 'Great job finishing this challenge', xp);
+    completedTasks++;
+  } else {
+    checkbox.textContent = '';
+    completedTasks--;
+  }
+  
+  updateProgress();
+  
+  // Visual feedback
+  const card = checkbox.closest('.task-card');
+  card.classList.toggle('completed', isDone);
+}
+
+// Command Filtering
+function filterCmds(category) {
+  document.querySelectorAll('.cmd-filter').forEach(btn => {
+    btn.classList.remove('on');
+  });
+  event.target.classList.add('on');
+  
+  document.querySelectorAll('.cmd-card').forEach(card => {
+    if (category === 'all' || card.dataset.cat === category) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Flashcard Flip
+function flipCard(wrap) {
+  wrap.querySelector('.flashcard').classList.toggle('flipped');
+}
+
+// Quiz Logic
+function selectOption(opt, isCorrect) {
+  const parent = opt.parentElement;
+  parent.querySelectorAll('.opt').forEach(o => {
+    o.classList.remove('selected', 'correct', 'wrong');
+    o.onclick = null; // Disable further clicks
+  });
+  
+  opt.classList.add('selected');
+  
+  if (isCorrect) {
+    opt.classList.add('correct');
+  } else {
+    opt.classList.add('wrong');
+    // Highlight correct answer
+    parent.querySelectorAll('.opt').forEach(o => {
+      if (o.onclick && o.onclick.toString().includes('true')) {
+        o.classList.add('correct');
+      }
+    });
+  }
+}
+
+function submitQuiz() {
+  const result = document.getElementById('quizResult');
+  result.style.display = 'flex';
+  result.className = 'result-box result-pass';
+  addXP(50);
+  showToast('Quiz Passed!', 'Perfect score on EC2 fundamentals', 50);
+  createConfetti();
+}
+
+// Exam Logic
+function submitExam() {
+  const result = document.getElementById('examResult');
+  result.style.display = 'flex';
+  document.getElementById('examCard').style.display = 'none';
+  document.getElementById('certPreview').style.display = 'block';
+  addXP(500);
+  showToast('Certification Earned!', 'You are now a Certified Cloud Associate', 500);
+  createConfetti();
+}
+
+// Timed Quiz
+let timerInterval;
+function startTimedQuiz() {
+  const timer = document.getElementById('quizTimer');
+  const display = document.getElementById('timerDisplay');
+  timer.classList.remove('hidden');
+  
+  let seconds = 180; // 3 minutes
+  timerInterval = setInterval(() => {
+    seconds--;
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    
+    if (seconds <= 30) {
+      display.classList.add('timer-warning');
+    }
+    
+    if (seconds <= 0) {
+      clearInterval(timerInterval);
+      showToast('Time\\'s Up!', 'Quiz submitted automatically', 0);
+    }
+  }, 1000);
+}
+
+// XP System
+function addXP(amount) {
+  userXP += amount;
+  document.getElementById('totalXP').textContent = userXP.toLocaleString();
+  
+  // Update XP bar
+  const nextLevel = userLevel * 500;
+  const prevLevel = (userLevel - 1) * 500;
+  const progress = ((userXP - prevLevel) / (nextLevel - prevLevel)) * 100;
+  document.getElementById('xpFill').style.width = progress + '%';
+  
+  // Check level up
+  if (userXP >= nextLevel) {
+    userLevel++;
+    showToast('Level Up!', `You reached Level ${userLevel}!`, 0);
+    createConfetti();
+  }
+}
+
+// Progress Updates
+function updateProgress() {
+  const percent = Math.round((completedTasks / totalTasks) * 100);
+  document.getElementById('globalProgress').style.width = percent + '%';
+  document.getElementById('progressText').textContent = percent + '% Complete';
+  document.getElementById('ringPercent').textContent = percent + '%';
+  
+  // Update ring
+  const circle = document.getElementById('progressCircle');
+  const circumference = 339.292;
+  const offset = circumference - (percent / 100) * circumference;
+  circle.style.strokeDashoffset = offset;
+  
+  // Update task badge
+  const remaining = totalTasks - completedTasks;
+  document.getElementById('taskBadge').textContent = remaining > 0 ? remaining : '';
+}
+
+// Streak Calendar
+function generateStreakGrid() {
+  const grid = document.getElementById('streakGrid');
+  const days = 30;
+  
+  for (let i = 0; i < days; i++) {
+    const day = document.createElement('div');
+    day.className = 'streak-day';
+    
+    // Random activity for demo
+    const rand = Math.random();
+    if (rand > 0.6) {
+      day.classList.add('active');
+      if (rand > 0.85) day.classList.add('high');
+    }
+    
+    // Today
+    if (i === days - 1) {
+      day.classList.add('today', 'active', 'high');
+    }
+    
+    grid.appendChild(day);
+  }
+}
+
+// Search
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  document.getElementById('globalSearch').focus();
+}
+
+function closeSearch(e) {
+  if (!e || e.target.id === 'searchOverlay') {
+    document.getElementById('searchOverlay').classList.remove('open');
+  }
+}
+
+function performSearch(query) {
+  const results = document.getElementById('searchResults');
+  
+  if (query.length < 2) {
+    results.innerHTML = '<div class="no-results">Type at least 2 characters...</div>';
+    return;
+  }
+  
+  // Mock search results
+  const mockResults = [
+    { type: 'module', title: 'EC2 & Compute Services', desc: 'Virtual servers and compute capacity' },
+    { type: 'command', title: 'aws ec2 run-instances', desc: 'Launch new EC2 instance' },
+    { type: 'flashcard', title: 'Amazon S3', desc: 'Simple Storage Service - Object storage' },
+    { type: 'task', title: 'Launch Your First EC2', desc: 'Create t2.micro with Linux 2' }
+  ].filter(r => r.title.toLowerCase().includes(query.toLowerCase()));
+  
+  if (mockResults.length === 0) {
+    results.innerHTML = '<div class="no-results">No results found</div>';
+    return;
+  }
+  
+  results.innerHTML = mockResults.map(r => `
+    <div class="search-result-item" onclick="handleSearchResult('${r.type}', '${r.title}')">
+      <span class="search-result-type ${r.type}">${r.type}</span>
+      <div>
+        <div class="search-result-title">${r.title}</div>
+        <div class="search-result-desc">${r.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function handleSearchResult(type, title) {
+  closeSearch();
+  showToast('Navigating...', `Opening ${title}`, 0);
+  
+  if (type === 'module') {
+    switchTab('modules');
+  } else if (type === 'task') {
+    switchTab('tasks');
+  } else if (type === 'command' || type === 'flashcard') {
+    switchTab('resources');
+  }
+}
+
+// Bookmark
+function toggleBookmark(btn) {
+  btn.classList.toggle('active');
+  const isActive = btn.classList.contains('active');
+  showToast(isActive ? 'Bookmarked' : 'Bookmark Removed', 'Module saved for later', 0);
+}
+
+// Copy Code
+function copyCode(btn) {
+  const code = btn.closest('.code-wrap').querySelector('pre').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// Toast
+function showToast(title, msg, xp) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMsg').textContent = msg;
+  document.getElementById('toastXP').textContent = xp > 0 ? `+${xp} XP` : '';
+  document.getElementById('toastXP').style.display = xp > 0 ? 'block' : 'none';
+  
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// Confetti
+function createConfetti() {
+  const container = document.getElementById('confetti');
+  const colors = ['#ff9900', '#2563eb', '#059669', '#dc2626', '#7c3aed'];
+  
+  for (let i = 0; i < 50; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 2 + 's';
+    piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    container.appendChild(piece);
+  }
+  
+  setTimeout(() => container.innerHTML = '', 5000);
+}
+
+// Certificate Download
+function downloadCertificate() {
+  showToast('Preparing Download...', 'Your certificate is being generated', 0);
+  setTimeout(() => {
+    showToast('Download Complete!', 'Certificate saved as PDF', 0);
+  }, 1500);
+}
+
+// Prevent modal close when clicking inside
+document.querySelector('.modal').addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+</script>
+
+</body>
+</html>
