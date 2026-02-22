@@ -368,11 +368,11 @@ body.dark .dash-card{background:#1e293b;border-color:#334155}
 .sh-fail{color:var(--red)}
 
 /* BAR CHART */
-.bar-chart{display:flex;align-items:flex-end;gap:6px;height:120px;padding-top:10px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:160px;padding-top:24px;overflow:visible}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
 .bar-fill{width:100%;background:linear-gradient(180deg,var(--blue),#6366f1);border-radius:4px 4px 0 0;min-height:4px;transition:height .6s ease}
-.bar-label{font-size:9px;color:var(--muted);text-align:center;font-family:'IBM Plex Mono',monospace;writing-mode:vertical-lr;transform:rotate(180deg);height:32px;overflow:hidden}
-.bar-val{font-size:9px;font-weight:700;color:var(--muted);font-family:'IBM Plex Mono',monospace}
+.bar-label{font-size:9px;color:var(--muted);text-align:center;font-family:'IBM Plex Mono',monospace;margin-top:4px;white-space:nowrap}
+.bar-val{font-size:9px;font-weight:700;color:var(--muted);font-family:'IBM Plex Mono',monospace;min-height:12px}
 
 /* WEAK AREAS */
 .weak-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
@@ -497,6 +497,8 @@ body.dark .dash-card{background:#1e293b;border-color:#334155}
     <button class="tab-btn" data-tab="practice" onclick="switchTab('practice',this)">🧪 Practice</button>
     <button class="tab-btn" data-tab="flashcards" onclick="switchTab('flashcards',this)">🃏 Flashcards</button>
     <button class="tab-btn" data-tab="linux" onclick="switchTab('linux',this)">🐧 Linux Cmds</button>
+    <button class="tab-btn" data-tab="awslabs" onclick="switchTab('awslabs',this)">☁️ AWS Labs</button>
+    <button class="tab-btn" data-tab="awstasks" onclick="switchTab('awstasks',this)">🛠️ AWS Tasks</button>
     <button class="tab-btn" data-tab="dashboard" onclick="switchTab('dashboard',this)">📊 Dashboard</button>
     <button class="tab-btn" data-tab="assessment" onclick="switchTab('assessment',this)">🏆 Assessment</button>
   </div>
@@ -579,6 +581,36 @@ body.dark .dash-card{background:#1e293b;border-color:#334155}
   </div>
 
 </div>
+
+  <div id="tab-awslabs" class="tab-panel">
+    <div class="sec-title">☁️ AWS Hands-On Labs</div>
+    <div class="sec-sub">8 real-world AWS labs — VPC, EC2, RDS, EBS, EFS, Load Balancer, Auto Scaling, IAM. Click any lab to view full step-by-step instructions.</div>
+    <div class="divider-line"></div>
+    <div class="mod-grid" id="awsLabsGrid"></div>
+  </div>
+
+  <!-- AWS TASKS -->
+  <div id="tab-awstasks" class="tab-panel">
+    <div class="sec-title">🛠️ AWS Practice Tasks</div>
+    <div class="sec-sub">Hands-on tasks across Compute, Storage, Networking, Database & Security. Each task = +10 XP.</div>
+    <div class="divider-line"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="awsCatFilterBar">
+      <button class="filter-btn f-all on" onclick="filterAwsTasks('all','cat',this)">All</button>
+      <button class="filter-btn" style="border-color:#f59e0b;color:#92400e" onclick="filterAwsTasks('Compute','cat',this)">⚡ Compute</button>
+      <button class="filter-btn" style="border-color:#0891b2;color:#0891b2" onclick="filterAwsTasks('Storage','cat',this)">💾 Storage</button>
+      <button class="filter-btn" style="border-color:#7c3aed;color:#7c3aed" onclick="filterAwsTasks('Networking','cat',this)">🌐 Networking</button>
+      <button class="filter-btn" style="border-color:#059669;color:#059669" onclick="filterAwsTasks('Database','cat',this)">🗄️ Database</button>
+      <button class="filter-btn" style="border-color:#dc2626;color:#dc2626" onclick="filterAwsTasks('Security','cat',this)">🔐 Security</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px" id="awsDiffFilterBar">
+      <button class="filter-btn f-easy" onclick="filterAwsTasks('easy','diff',this)">🟢 Easy</button>
+      <button class="filter-btn f-medium" onclick="filterAwsTasks('medium','diff',this)">🟡 Medium</button>
+      <button class="filter-btn f-hard" onclick="filterAwsTasks('hard','diff',this)">🔴 Hard</button>
+    </div>
+    <div class="tasks-grid" id="awsTasksGrid"></div>
+  </div>
+
+
 
 <!-- MODULE MODAL -->
 <div class="overlay" id="overlay" onclick="closeOverlay(event)">
@@ -3293,8 +3325,8 @@ function openModal(i) {
         ${modTasks.length === 0
           ? `<div style="padding:20px;text-align:center;color:var(--muted);font-size:14px;background:var(--bg);border-radius:var(--r)">No tasks for this module yet.</div>`
           : modTasks.map(t => `
-          <div class="task-card" style="margin-bottom:10px">
-            <div class="task-check ${taskDone[t.id]?'done':''}" onclick="toggleTask(${t.id},this)">
+          <div class="task-card" style="margin-bottom:10px" onclick="openTaskModal(${t.id})">
+            <div class="task-check ${taskDone[t.id]?'done':''}" onclick="event.stopPropagation();toggleTask(${t.id},this)">
               ${taskDone[t.id] ? '<span style="color:#fff;font-size:14px">✓</span>' : ''}
             </div>
             <div class="task-main">
@@ -3305,6 +3337,7 @@ function openModal(i) {
               <p>${t.desc}</p>
               <div class="task-tags">${t.tags.map(tg=>`<span class="ttag">${tg}</span>`).join('')}</div>
             </div>
+            <div style="font-size:12px;color:var(--blue);font-weight:700;white-space:nowrap;align-self:center">View Steps →</div>
           </div>`).join('')}
       </div>
 
@@ -3819,6 +3852,8 @@ function switchTab(tab, btn) {
   if (tab === 'dashboard') renderDashboard();
   if (tab === 'practice') renderPractice();
   if (tab === 'flashcards') renderFlashcards();
+  if (tab === 'awslabs') renderAwsLabs();
+  if (tab === 'awstasks') renderAwsTasks();
 }
 
 // ── DARK MODE ──
@@ -3954,8 +3989,8 @@ function renderDashboard() {
   const maxTime = Math.max(...MODULES.map((_,i)=>timeData[i]?.total||0),1);
   const barHTML = MODULES.map((m,i)=>{
     const t=timeData[i]?.total||0;
-    const h=Math.max(Math.round((t/maxTime)*100),2);
-    return `<div class="bar-col"><div class="bar-val" style="font-size:9px;color:var(--muted)">${t>0?formatTime(t):''}</div><div class="bar-fill" style="height:${h}px"></div><div class="bar-label">${m.num}</div></div>`;
+    const h=Math.max(Math.round((t/maxTime)*110),2);
+    return `<div class="bar-col"><div class="bar-val">${t>0?formatTime(t):''}</div><div class="bar-fill" style="height:${h}px"></div><div class="bar-label">${m.num}</div></div>`;
   }).join('');
 
   const weakMap={};
@@ -4328,6 +4363,993 @@ renderTasks();
 renderCheckpoints();
 renderLinux();
 renderAssessment();
+
+// ═══════════════════════════════════════════════
+//  DATA — AWS LABS
+// ═══════════════════════════════════════════════
+const AWS_LABS = [
+{
+  num:"L1", emoji:"🌐", color:"#2563eb", bg:"#dbeafe",
+  title:"VPC Full Setup",
+  sub:"VPC · Subnets · IGW · NAT · Route Tables",
+  difficulty:"Foundation",
+  diffColor:"#2563eb", diffBg:"#dbeafe",
+  overview:"Build a complete VPC from scratch. You will create a VPC with public and private subnets, attach an Internet Gateway for outbound internet access, set up a NAT Gateway so private resources can reach the internet without being exposed, and configure route tables to direct traffic correctly.",
+  objectives:[
+    "Create a VPC with CIDR 10.0.0.0/16",
+    "Create PublicSubnet (10.0.1.0/24) and PrivateSubnet (10.0.2.0/24)",
+    "Attach an Internet Gateway to the VPC",
+    "Create a NAT Gateway in the public subnet",
+    "Configure public route table: 0.0.0.0/0 → IGW",
+    "Configure private route table: 0.0.0.0/0 → NAT Gateway"
+  ],
+  steps:[
+    {n:1,title:"Create the VPC",why:"VPC is your private network in AWS. All resources live inside it.",
+     body:"Go to VPC Dashboard → Your VPCs → Create VPC",
+     code:`# AWS CLI alternative:
+aws ec2 create-vpc --cidr-block 10.0.0.0/16 \\
+  --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=LabVPC}]'
+
+# Enable DNS hostnames (required for EC2 public DNS)
+aws ec2 modify-vpc-attribute --vpc-id <VPC_ID> --enable-dns-hostnames`,lang:"bash"},
+    {n:2,title:"Create Public & Private Subnets",why:"Subnets divide your VPC into smaller IP ranges. Public subnet hosts internet-facing resources, private subnet hosts databases and internal services.",
+     body:"Create two subnets in the same AZ (e.g. ap-south-1a):",
+     code:`# Public Subnet
+aws ec2 create-subnet \\
+  --vpc-id <VPC_ID> \\
+  --cidr-block 10.0.1.0/24 \\
+  --availability-zone ap-south-1a \\
+  --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PublicSubnet}]'
+
+# Private Subnet
+aws ec2 create-subnet \\
+  --vpc-id <VPC_ID> \\
+  --cidr-block 10.0.2.0/24 \\
+  --availability-zone ap-south-1a \\
+  --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=PrivateSubnet}]'
+
+# Enable auto-assign public IP on public subnet
+aws ec2 modify-subnet-attribute \\
+  --subnet-id <PUBLIC_SUBNET_ID> \\
+  --map-public-ip-on-launch`,lang:"bash"},
+    {n:3,title:"Create & Attach Internet Gateway",why:"VPC cannot reach internet by default. IGW is the door between your VPC and the internet.",
+     body:"Create an IGW and attach it to LabVPC:",
+     code:`aws ec2 create-internet-gateway \\
+  --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=LabIGW}]'
+
+aws ec2 attach-internet-gateway \\
+  --internet-gateway-id <IGW_ID> \\
+  --vpc-id <VPC_ID>`,lang:"bash"},
+    {n:4,title:"Create NAT Gateway",why:"Private subnet EC2s need internet for updates/patches. NAT allows outbound-only internet from private subnet.",
+     body:"Create an Elastic IP first, then NAT Gateway in the PUBLIC subnet:",
+     code:`# Allocate Elastic IP
+aws ec2 allocate-address --domain vpc
+
+# Create NAT Gateway in PUBLIC subnet
+aws ec2 create-nat-gateway \\
+  --subnet-id <PUBLIC_SUBNET_ID> \\
+  --allocation-id <EIP_ALLOCATION_ID> \\
+  --tag-specifications 'ResourceType=natgateway,Tags=[{Key=Name,Value=LabNAT}]'
+
+# Wait for NAT to be available (takes ~1 min)
+aws ec2 wait nat-gateway-available --nat-gateway-ids <NAT_ID>`,lang:"bash"},
+    {n:5,title:"Configure Route Tables",why:"Route tables tell traffic where to go. Without correct routes, nothing can communicate.",
+     body:"Create two route tables — one for public subnet (→IGW), one for private subnet (→NAT):",
+     code:`# Public Route Table
+aws ec2 create-route-table --vpc-id <VPC_ID> \\
+  --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PublicRT}]'
+
+aws ec2 create-route --route-table-id <PUBLIC_RT_ID> \\
+  --destination-cidr-block 0.0.0.0/0 \\
+  --gateway-id <IGW_ID>
+
+aws ec2 associate-route-table \\
+  --route-table-id <PUBLIC_RT_ID> \\
+  --subnet-id <PUBLIC_SUBNET_ID>
+
+# Private Route Table
+aws ec2 create-route-table --vpc-id <VPC_ID> \\
+  --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PrivateRT}]'
+
+aws ec2 create-route --route-table-id <PRIVATE_RT_ID> \\
+  --destination-cidr-block 0.0.0.0/0 \\
+  --nat-gateway-id <NAT_ID>
+
+aws ec2 associate-route-table \\
+  --route-table-id <PRIVATE_RT_ID> \\
+  --subnet-id <PRIVATE_SUBNET_ID>`,lang:"bash"}
+  ]
+},
+{
+  num:"L2", emoji:"💻", color:"#7c3aed", bg:"#ede9fe",
+  title:"EC2 Full Setup (Public + Private)",
+  sub:"EC2 · Security Groups · Apache · SSH Jump",
+  difficulty:"Core",
+  diffColor:"#7c3aed", diffBg:"#ede9fe",
+  overview:"Launch a public EC2 with Apache web server, then a private EC2 accessible only through the public server. This teaches security groups, key pair management, and SSH jump host pattern — fundamental skills for real AWS deployments.",
+  objectives:[
+    "Launch a public EC2 with Apache installed",
+    "Configure Security Groups to allow SSH (22) and HTTP (80)",
+    "Connect via EC2 Instance Connect or terminal SSH",
+    "Create a webpage visible from the internet",
+    "Launch a private EC2 with no public IP",
+    "SSH into private EC2 via public EC2 (jump host pattern)"
+  ],
+  steps:[
+    {n:1,title:"Launch Public EC2",why:"Public EC2 will serve as your web server AND jump host to reach private resources.",
+     body:"Go to EC2 → Launch Instance and fill these settings:",
+     code:`# Launch via CLI:
+aws ec2 run-instances \\
+  --image-id ami-0f5ee92e2d63afc18 \\
+  --instance-type t2.micro \\
+  --key-name MyKeyPair \\
+  --subnet-id <PUBLIC_SUBNET_ID> \\
+  --security-group-ids <PUBLIC_SG_ID> \\
+  --associate-public-ip-address \\
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=PublicServer}]'
+
+# Security Group rules needed:
+# Port 22 (SSH) — from Your IP
+# Port 80 (HTTP) — from 0.0.0.0/0`,lang:"bash"},
+    {n:2,title:"Connect & Install Apache",why:"Apache is the web server. Without it, visiting the public IP shows nothing.",
+     body:"Connect via EC2 Instance Connect (browser) or your terminal, then install Apache:",
+     code:`# Connect via terminal:
+chmod 400 MyKeyPair.pem
+ssh -i MyKeyPair.pem ec2-user@<PUBLIC_IP>
+
+# Once inside EC2:
+sudo yum update -y
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+# Create a test webpage:
+echo "Public Server - Running!" | sudo tee /var/www/html/index.html
+
+# Verify Apache is running:
+sudo systemctl status httpd`,lang:"bash",note:"Visit http://<PUBLIC_IP> in your browser. You must see the text. If not, check Security Group allows port 80."},
+    {n:3,title:"Launch Private EC2",why:"Databases and internal services should never be directly exposed to internet. Private subnet = no public IP.",
+     body:"Launch second EC2 in the private subnet with NO public IP:",
+     code:`aws ec2 run-instances \\
+  --image-id ami-0f5ee92e2d63afc18 \\
+  --instance-type t2.micro \\
+  --key-name MyKeyPair \\
+  --subnet-id <PRIVATE_SUBNET_ID> \\
+  --security-group-ids <PRIVATE_SG_ID> \\
+  --no-associate-public-ip-address \\
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=PrivateServer}]'
+
+# Private EC2 Security Group rules:
+# Port 22 (SSH) — from PublicServer Security Group ID only`,lang:"bash"},
+    {n:4,title:"SSH into Private EC2 via Jump Host",why:"Private EC2 has no public IP. You must go through public EC2 first. This is called a bastion/jump host pattern.",
+     body:"First SSH into PublicServer, then from there SSH into PrivateServer:",
+     code:`# From your local machine — SSH to Public:
+ssh -i MyKeyPair.pem ec2-user@<PUBLIC_IP>
+
+# Now from PublicServer — SSH to Private:
+ssh -i MyKeyPair.pem ec2-user@<PRIVATE_PRIVATE_IP>
+
+# Alternatively — use SSH ProxyJump (one command):
+ssh -i MyKeyPair.pem \\
+  -J ec2-user@<PUBLIC_IP> \\
+  ec2-user@<PRIVATE_IP>
+
+# Test NAT is working from private EC2:
+sudo yum update -y  # Must succeed → NAT working`,lang:"bash",note:"If yum update works from private EC2, your NAT Gateway is correctly configured."}
+  ]
+},
+{
+  num:"L3", emoji:"🗄️", color:"#059669", bg:"#d1fae5",
+  title:"RDS MySQL in Private Subnet",
+  sub:"RDS · MySQL · Subnet Groups · Security Groups",
+  difficulty:"Core",
+  diffColor:"#059669", diffBg:"#d1fae5",
+  overview:"Create a managed MySQL database inside your private subnet. RDS handles backups, patching, and high availability. You will connect to it only from your public EC2 — the database is never exposed to the internet.",
+  objectives:[
+    "Create an RDS subnet group using private subnets",
+    "Launch MySQL RDS instance with no public access",
+    "Configure Security Group to allow port 3306 from EC2 SG only",
+    "Connect to RDS from PublicServer using MySQL client",
+    "Create a database and verify connectivity"
+  ],
+  steps:[
+    {n:1,title:"Create DB Subnet Group",why:"RDS needs to know which subnets to use. Subnet group must span at least 2 AZs.",
+     body:"Go to RDS → Subnet Groups → Create DB Subnet Group:",
+     code:`# Create subnet group via CLI:
+aws rds create-db-subnet-group \\
+  --db-subnet-group-name lab-db-subnet \\
+  --db-subnet-group-description "Private subnets for RDS" \\
+  --subnet-ids <PRIVATE_SUBNET_1_ID> <PRIVATE_SUBNET_2_ID>`,lang:"bash",note:"You may need a second private subnet in a different AZ. RDS requires multi-AZ subnet groups even for single-AZ deployments."},
+    {n:2,title:"Create RDS MySQL Instance",why:"AWS manages the DB server for you — patching, backups, failover. You just use the endpoint.",
+     body:"Go to RDS → Create Database and configure:",
+     code:`aws rds create-db-instance \\
+  --db-instance-identifier labdb \\
+  --db-instance-class db.t3.micro \\
+  --engine mysql \\
+  --master-username admin \\
+  --master-user-password YourStrongPass123! \\
+  --allocated-storage 20 \\
+  --db-subnet-group-name lab-db-subnet \\
+  --vpc-security-group-ids <RDS_SG_ID> \\
+  --no-publicly-accessible \\
+  --backup-retention-period 7
+
+# Security Group for RDS: Allow port 3306 from PublicServer SG only
+# Wait for RDS to be available (~5-10 mins):
+aws rds wait db-instance-available --db-instance-identifier labdb`,lang:"bash"},
+    {n:3,title:"Connect from Public EC2",why:"Because RDS has no public IP, you must connect from inside the VPC — through your EC2.",
+     body:"SSH into PublicServer, then connect to RDS:",
+     code:`# Install MySQL client on EC2:
+sudo yum install mysql -y
+
+# Get the RDS endpoint from console or CLI:
+aws rds describe-db-instances \\
+  --db-instance-identifier labdb \\
+  --query 'DBInstances[0].Endpoint.Address'
+
+# Connect to MySQL:
+mysql -h <RDS_ENDPOINT> -u admin -p
+
+# Inside MySQL — verify:
+show databases;
+create database testdb;
+use testdb;
+create table users (id int, name varchar(50));
+insert into users values (1, 'AWS Engineer');
+select * from users;`,lang:"bash",tip:"Save the endpoint from the RDS console. It looks like: labdb.xxxxxxx.ap-south-1.rds.amazonaws.com"}
+  ]
+},
+{
+  num:"L4", emoji:"💾", color:"#d97706", bg:"#fef3c7",
+  title:"EBS — Elastic Block Store",
+  sub:"EBS · Volumes · Format · Mount · Persistent Storage",
+  difficulty:"Core",
+  diffColor:"#d97706", diffBg:"#fef3c7",
+  overview:"Add an extra disk to your EC2 instance. EBS is block storage that persists even when EC2 is stopped. You will create a volume, attach it, format it with a filesystem, and mount it — same process as adding a physical hard drive to a server.",
+  objectives:[
+    "Create a 5GB EBS volume in the same AZ as your EC2",
+    "Attach the volume to PublicServer",
+    "Format the volume with ext4 filesystem",
+    "Mount it at /data directory",
+    "Write and verify data persists after detach/reattach"
+  ],
+  steps:[
+    {n:1,title:"Create & Attach EBS Volume",why:"New EC2 instances only have the root volume. For additional storage, you attach EBS volumes just like adding a hard drive.",
+     body:"Go to EC2 → Volumes → Create Volume (must be SAME AZ as your EC2):",
+     code:`# Create 5GB volume in same AZ as EC2:
+aws ec2 create-volume \\
+  --availability-zone ap-south-1a \\
+  --size 5 \\
+  --volume-type gp3 \\
+  --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=LabEBS}]'
+
+# Attach to your EC2:
+aws ec2 attach-volume \\
+  --volume-id <VOLUME_ID> \\
+  --instance-id <EC2_INSTANCE_ID> \\
+  --device /dev/xvdf`,lang:"bash"},
+    {n:2,title:"Format & Mount the Volume",why:"A raw EBS volume has no filesystem. You must format it before you can store files. This is like partitioning a new hard drive.",
+     body:"SSH into PublicServer and run:",
+     code:`# See available block devices:
+lsblk
+
+# You should see /dev/xvdf listed (your new volume)
+# Format with ext4 filesystem:
+sudo mkfs -t ext4 /dev/xvdf
+
+# Create mount directory:
+sudo mkdir -p /data
+
+# Mount the volume:
+sudo mount /dev/xvdf /data
+
+# Verify it's mounted:
+df -h | grep /data`,lang:"bash"},
+    {n:3,title:"Test & Make Persistent",why:"Mount command is temporary — it disappears on reboot. Add to /etc/fstab to auto-mount on restart.",
+     body:"Write test data and configure auto-mount:",
+     code:`# Write test data:
+echo "EBS Working — Data Persists!" | sudo tee /data/test.txt
+cat /data/test.txt
+
+# Get device UUID for fstab (safer than device name):
+sudo blkid /dev/xvdf
+
+# Add to /etc/fstab for auto-mount on reboot:
+echo "UUID=<YOUR_UUID> /data ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
+
+# Test fstab entry:
+sudo umount /data
+sudo mount -a  # Re-mounts from fstab
+cat /data/test.txt  # Should still be there`,lang:"bash",tip:"Always use UUID instead of device name in fstab. Device names can change on reboot."}
+  ]
+},
+{
+  num:"L5", emoji:"📁", color:"#0891b2", bg:"#cffafe",
+  title:"EFS — Elastic File System",
+  sub:"EFS · Shared Storage · Multiple EC2 Mount",
+  difficulty:"Core",
+  diffColor:"#0891b2", diffBg:"#cffafe",
+  overview:"Create a shared file system that multiple EC2 instances can mount simultaneously. EFS is like a network drive — when one server writes a file, all other servers see it immediately. Essential for applications running on multiple servers behind a load balancer.",
+  objectives:[
+    "Create an EFS file system attached to LabVPC",
+    "Create mount targets in both public and private subnets",
+    "Install amazon-efs-utils on both EC2 instances",
+    "Mount EFS at /shared on both servers",
+    "Write a file on PublicServer and verify it appears on PrivateServer"
+  ],
+  steps:[
+    {n:1,title:"Create EFS File System",why:"EFS provides shared NFS-based storage accessible from multiple EC2 simultaneously — unlike EBS which is attached to one instance.",
+     body:"Go to EFS → Create File System:",
+     code:`aws efs create-file-system \\
+  --performance-mode generalPurpose \\
+  --throughput-mode bursting \\
+  --tags Key=Name,Value=LabEFS
+
+# Create mount targets in each subnet (EFS needs one per AZ):
+aws efs create-mount-target \\
+  --file-system-id <EFS_ID> \\
+  --subnet-id <PUBLIC_SUBNET_ID> \\
+  --security-groups <EFS_SG_ID>
+
+aws efs create-mount-target \\
+  --file-system-id <EFS_ID> \\
+  --subnet-id <PRIVATE_SUBNET_ID> \\
+  --security-groups <EFS_SG_ID>
+
+# EFS Security Group: Allow NFS (port 2049) from EC2 SGs`,lang:"bash"},
+    {n:2,title:"Mount EFS on Both EC2s",why:"Mount targets allow EC2s to access EFS. Once mounted, all instances see the same shared filesystem.",
+     body:"Run on BOTH PublicServer and PrivateServer:",
+     code:`# Install EFS utilities:
+sudo yum install amazon-efs-utils -y
+
+# Create mount directory:
+sudo mkdir -p /shared
+
+# Mount using EFS DNS name (recommended):
+sudo mount -t efs <EFS_ID>:/ /shared
+
+# Or mount with TLS encryption:
+sudo mount -t efs -o tls <EFS_ID>:/ /shared
+
+# Verify mount:
+df -h | grep /shared`,lang:"bash"},
+    {n:3,title:"Test Shared Storage",why:"The whole point of EFS is that files written by one server are immediately visible to all others.",
+     body:"Test from PublicServer, verify on PrivateServer:",
+     code:`# On PublicServer — write a file:
+echo "Hello from PublicServer — $(date)" | sudo tee /shared/test.txt
+ls -la /shared/
+
+# On PrivateServer (SSH in from Public) — read the file:
+cat /shared/test.txt  # Must show PublicServer's message!
+
+# Write from PrivateServer:
+echo "Hello from PrivateServer!" | sudo tee /shared/from-private.txt
+
+# Back on PublicServer — both files must be visible:
+ls /shared/  # test.txt AND from-private.txt`,lang:"bash",tip:"EFS is perfect for web server clusters — upload one image, all servers in the load balancer see it instantly."}
+  ]
+},
+{
+  num:"L6", emoji:"⚖️", color:"#dc2626", bg:"#fee2e2",
+  title:"Application Load Balancer",
+  sub:"ALB · Target Groups · Health Checks · Traffic Distribution",
+  difficulty:"Advanced",
+  diffColor:"#dc2626", diffBg:"#fee2e2",
+  overview:"Distribute incoming web traffic across two EC2 instances. The ALB automatically checks which servers are healthy and routes traffic only to them. This ensures high availability — if one server fails, the other handles all traffic.",
+  objectives:[
+    "Launch 2 public EC2s with different Apache pages",
+    "Create a Target Group and register both instances",
+    "Create an Application Load Balancer in public subnets",
+    "Attach the target group to the ALB",
+    "Verify traffic alternates between servers on refresh"
+  ],
+  steps:[
+    {n:1,title:"Prepare Two EC2s with Different Pages",why:"We need to verify the load balancer actually distributes traffic — so each server shows a different message.",
+     body:"Launch 2 EC2s in public subnets, install Apache on each:",
+     code:`# On Server 1 — create unique page:
+echo "<h1>Server 1 — I'm handling your request!</h1>" | \\
+  sudo tee /var/www/html/index.html
+
+# On Server 2 — create different page:
+echo "<h1>Server 2 — I'm handling your request!</h1>" | \\
+  sudo tee /var/www/html/index.html
+
+# Verify Apache running on both:
+sudo systemctl status httpd`,lang:"bash"},
+    {n:2,title:"Create Target Group",why:"ALB needs a target group — a list of backend servers to route traffic to. Health checks ensure only healthy servers receive traffic.",
+     body:"Go to EC2 → Target Groups → Create:",
+     code:`aws elbv2 create-target-group \\
+  --name lab-target-group \\
+  --protocol HTTP \\
+  --port 80 \\
+  --vpc-id <VPC_ID> \\
+  --health-check-path / \\
+  --health-check-interval-seconds 30 \\
+  --healthy-threshold-count 2 \\
+  --unhealthy-threshold-count 2
+
+# Register both EC2 instances:
+aws elbv2 register-targets \\
+  --target-group-arn <TG_ARN> \\
+  --targets Id=<EC2_1_ID> Id=<EC2_2_ID>`,lang:"bash"},
+    {n:3,title:"Create ALB & Test",why:"ALB is the entry point. All traffic goes to the ALB DNS name, and ALB distributes it to registered targets.",
+     body:"Create Load Balancer and attach the target group:",
+     code:`aws elbv2 create-load-balancer \\
+  --name lab-alb \\
+  --subnets <PUBLIC_SUBNET_1> <PUBLIC_SUBNET_2> \\
+  --security-groups <ALB_SG_ID> \\
+  --scheme internet-facing \\
+  --type application
+
+# Create listener (ALB listens on port 80):
+aws elbv2 create-listener \\
+  --load-balancer-arn <ALB_ARN> \\
+  --protocol HTTP --port 80 \\
+  --default-actions Type=forward,TargetGroupArn=<TG_ARN>
+
+# Get ALB DNS name:
+aws elbv2 describe-load-balancers \\
+  --names lab-alb \\
+  --query 'LoadBalancers[0].DNSName'
+
+# Open DNS name in browser and refresh multiple times
+# You should see Server 1 and Server 2 alternating!`,lang:"bash",tip:"ALB SG must allow port 80 from internet. EC2 SG must allow port 80 from ALB SG."}
+  ]
+},
+{
+  num:"L7", emoji:"📈", color:"#f59e0b", bg:"#fef3c7",
+  title:"Auto Scaling Group",
+  sub:"Launch Template · ASG · Scale In/Out · Health Checks",
+  difficulty:"Advanced",
+  diffColor:"#f59e0b", diffBg:"#fef3c7",
+  overview:"Configure automatic EC2 scaling based on demand. When traffic increases, AWS automatically launches new instances. When traffic drops, it terminates extra instances. You define the minimum, desired, and maximum — AWS handles the rest.",
+  objectives:[
+    "Create a Launch Template with EC2 configuration",
+    "Create an Auto Scaling Group attached to the Launch Template",
+    "Set Min=1, Desired=2, Max=3 capacity",
+    "Attach the existing Load Balancer",
+    "Test: Stop one instance and verify ASG launches replacement"
+  ],
+  steps:[
+    {n:1,title:"Create Launch Template",why:"ASG needs a blueprint to launch new instances. Launch Template stores all EC2 settings — AMI, type, key pair, security group, user data.",
+     body:"Go to EC2 → Launch Templates → Create:",
+     code:`aws ec2 create-launch-template \\
+  --launch-template-name lab-lt \\
+  --version-description "v1" \\
+  --launch-template-data '{
+    "ImageId": "ami-0f5ee92e2d63afc18",
+    "InstanceType": "t2.micro",
+    "KeyName": "MyKeyPair",
+    "SecurityGroupIds": ["<EC2_SG_ID>"],
+    "UserData": "'$(base64 -w0 <<EOF
+#!/bin/bash
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+echo "Auto-scaled server - $(hostname)" > /var/www/html/index.html
+EOF
+)'"
+  }'`,lang:"bash"},
+    {n:2,title:"Create Auto Scaling Group",why:"ASG manages the EC2 fleet — launches new ones when needed, terminates when not needed, replaces unhealthy ones automatically.",
+     body:"Create ASG attached to both public subnets and the load balancer:",
+     code:`aws autoscaling create-auto-scaling-group \\
+  --auto-scaling-group-name lab-asg \\
+  --launch-template LaunchTemplateName=lab-lt,Version='$Latest' \\
+  --min-size 1 \\
+  --desired-capacity 2 \\
+  --max-size 3 \\
+  --vpc-zone-identifier "<PUBLIC_SUBNET_1>,<PUBLIC_SUBNET_2>" \\
+  --target-group-arns <TG_ARN> \\
+  --health-check-type ELB \\
+  --health-check-grace-period 300`,lang:"bash"},
+    {n:3,title:"Test Auto Scaling",why:"The real test — manually terminate one instance and verify ASG automatically launches a replacement.",
+     body:"Terminate one instance and watch ASG self-heal:",
+     code:`# List instances in the ASG:
+aws autoscaling describe-auto-scaling-instances \\
+  --query 'AutoScalingInstances[*].InstanceId'
+
+# Terminate one instance:
+aws ec2 terminate-instances --instance-ids <INSTANCE_ID>
+
+# Watch ASG activity (should show Launch event):
+aws autoscaling describe-scaling-activities \\
+  --auto-scaling-group-name lab-asg \\
+  --max-items 5
+
+# Verify new instance launched:
+aws autoscaling describe-auto-scaling-instances
+
+# Add CPU-based scaling policy:
+aws autoscaling put-scaling-policy \\
+  --auto-scaling-group-name lab-asg \\
+  --policy-name cpu-scale-out \\
+  --policy-type TargetTrackingScaling \\
+  --target-tracking-configuration '{"PredefinedMetricSpecification":{"PredefinedMetricType":"ASGAverageCPUUtilization"},"TargetValue":70.0}'`,lang:"bash",tip:"After terminating an instance, refresh EC2 console every 30 seconds. You will see a new instance start within 1-2 minutes."}
+  ]
+},
+{
+  num:"L8", emoji:"🔐", color:"#7c3aed", bg:"#ede9fe",
+  title:"IAM — Users, Roles & Policies",
+  sub:"IAM Users · Groups · Roles · Least Privilege · MFA",
+  difficulty:"Core",
+  diffColor:"#7c3aed", diffBg:"#ede9fe",
+  overview:"Configure AWS Identity and Access Management following security best practices. Create IAM users with least-privilege permissions, organize them into groups, create an EC2 role for secure service-to-service access, and enforce MFA for console login.",
+  objectives:[
+    "Never use root account for daily tasks",
+    "Create IAM user with programmatic and console access",
+    "Create IAM group with appropriate policies",
+    "Create EC2 IAM role with S3 read-only access",
+    "Attach role to EC2 and verify no access keys needed"
+  ],
+  steps:[
+    {n:1,title:"Create IAM User & Group",why:"Root account has unlimited access — compromise = full account loss. IAM users have limited, defined permissions.",
+     body:"Create a developer user in a developers group:",
+     code:`# Create group with EC2 access:
+aws iam create-group --group-name CloudDevelopers
+aws iam attach-group-policy \\
+  --group-name CloudDevelopers \\
+  --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess
+
+# Create user:
+aws iam create-user --user-name devuser
+
+# Add to group:
+aws iam add-user-to-group \\
+  --user-name devuser \\
+  --group-name CloudDevelopers
+
+# Create console password:
+aws iam create-login-profile \\
+  --user-name devuser \\
+  --password TempPass123! \\
+  --password-reset-required`,lang:"bash"},
+    {n:2,title:"Create EC2 Role (No Access Keys!)",why:"Applications on EC2 should use IAM Roles — not hardcoded keys. Roles provide temporary credentials automatically.",
+     body:"Create a role that EC2 can assume:",
+     code:`# Create role with EC2 trust policy:
+aws iam create-role \\
+  --role-name EC2S3ReadRole \\
+  --assume-role-policy-document '{
+    "Version":"2012-10-17",
+    "Statement":[{
+      "Effect":"Allow",
+      "Principal":{"Service":"ec2.amazonaws.com"},
+      "Action":"sts:AssumeRole"
+    }]
+  }'
+
+# Attach S3 read-only policy:
+aws iam attach-role-policy \\
+  --role-name EC2S3ReadRole \\
+  --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+
+# Create instance profile and attach role:
+aws iam create-instance-profile --instance-profile-name EC2S3Profile
+aws iam add-role-to-instance-profile \\
+  --instance-profile-name EC2S3Profile \\
+  --role-name EC2S3ReadRole`,lang:"bash"},
+    {n:3,title:"Test IAM Role & Least Privilege",why:"Verify the role works — EC2 can access S3 without any configured credentials. Also test that it CANNOT do what it's not permitted to.",
+     body:"Launch EC2 with the instance profile and test:",
+     code:`# SSH into EC2 with instance profile attached
+# No aws configure needed — role provides temp credentials:
+aws s3 ls  # Should work!
+aws sts get-caller-identity  # Shows role ARN
+
+# Check temp credentials from instance metadata:
+curl http://169.254.169.254/latest/meta-data/iam/security-credentials/EC2S3ReadRole
+
+# Test DENY — try to create S3 bucket (not in policy):
+aws s3 mb s3://test-bucket-12345  # Should fail with AccessDenied
+
+# Enforce MFA for console login (best practice):
+aws iam create-virtual-mfa-device --virtual-mfa-device-name devuser-mfa
+
+# View all users and their MFA status:
+aws iam list-users --query 'Users[*].[UserName,PasswordLastUsed]' --output table`,lang:"bash",tip:"NEVER store AWS access keys in code. Use IAM Roles for EC2, Lambda, and all AWS services. Use environment variables or AWS Secrets Manager for third-party apps."}
+  ]
+}
+];
+
+// ═══════════════════════════════════════════════
+//  DATA — AWS TASKS
+// ═══════════════════════════════════════════════
+const AWS_TASKS = [
+  // COMPUTE — EC2
+  {id:101,cat:"Compute",diff:"easy",title:"Launch your first EC2 instance",desc:"Launch a t2.micro Amazon Linux 2 EC2 in the default VPC, connect via EC2 Instance Connect, and run a basic command.",tags:["EC2","Compute"],steps:[
+    {title:"Open EC2 Console",desc:"Go to AWS Console → EC2 → Launch Instance"},
+    {title:"Choose AMI",desc:"Select Amazon Linux 2 AMI (Free Tier eligible)"},
+    {title:"Choose Instance Type",desc:"Select t2.micro — 1 vCPU, 1GB RAM. Free tier eligible."},
+    {title:"Configure Network",desc:"Use default VPC and default subnet. Enable Auto-assign Public IP."},
+    {title:"Add Security Group",desc:"Create new SG. Allow SSH (22) from My IP only."},
+    {title:"Launch & Connect",desc:"Launch, wait for running state, click Connect → EC2 Instance Connect. Run: whoami && uname -r"},
+  ]},
+  {id:102,cat:"Compute",diff:"easy",title:"Install Apache web server on EC2",desc:"SSH into an EC2 instance, install Apache (httpd), start it, and serve a custom HTML page.",tags:["EC2","Apache"],steps:[
+    {title:"Connect to EC2",desc:"SSH: ssh -i key.pem ec2-user@<PUBLIC_IP>"},
+    {title:"Install Apache",desc:"",code_text:"sudo yum update -y\nsudo yum install httpd -y"},
+    {title:"Start & Enable Apache",desc:"",code_text:"sudo systemctl start httpd\nsudo systemctl enable httpd"},
+    {title:"Create webpage",desc:"",code_text:'echo "<h1>My AWS Web Server</h1>" | sudo tee /var/www/html/index.html'},
+    {title:"Open port 80",desc:"Add inbound rule to Security Group: HTTP (80) from 0.0.0.0/0"},
+    {title:"Test in browser",desc:"Open http://<PUBLIC_IP>. You should see 'My AWS Web Server'"},
+  ]},
+  {id:103,cat:"Compute",diff:"medium",title:"Set up an Application Load Balancer with 2 EC2s",desc:"Launch 2 EC2 instances, register them in a Target Group, create an ALB, and verify load distribution.",tags:["EC2","ALB","Compute"],steps:[
+    {title:"Launch 2 EC2 instances",desc:"Both in public subnet with Apache installed. Give each a unique index.html"},
+    {title:"Create Target Group",desc:"EC2 → Target Groups → Create. Protocol: HTTP, Port: 80. Register both instances."},
+    {title:"Create ALB",desc:"EC2 → Load Balancers → Create → Application. Internet-facing, attach to public subnets."},
+    {title:"Add Listener",desc:"Port 80, forward to your target group"},
+    {title:"Test",desc:"Copy ALB DNS name. Open in browser. Refresh 10 times. Should see both servers alternating."},
+  ]},
+  {id:104,cat:"Compute",diff:"medium",title:"Configure Auto Scaling with CPU trigger",desc:"Create an ASG with a scaling policy that launches new EC2s when CPU exceeds 70%.",tags:["AutoScaling","EC2"],steps:[
+    {title:"Create Launch Template",desc:"EC2 → Launch Templates. Select AMI, t2.micro, key pair, SG with httpd user data."},
+    {title:"Create Auto Scaling Group",desc:"Min 1, Desired 2, Max 4. Attach to 2 public subnets."},
+    {title:"Add Target Tracking Policy",desc:"",code_text:"Metric: ASGAverageCPUUtilization\nTarget: 70%"},
+    {title:"Simulate load",desc:"SSH in and run: stress --cpu 4 --timeout 300 (install with sudo yum install stress)"},
+    {title:"Watch scaling",desc:"Check ASG Activity tab. New instance should launch when CPU > 70%"},
+  ]},
+  {id:105,cat:"Compute",diff:"hard",title:"Create EC2 with user data script (bootstrap)",desc:"Launch EC2 that automatically installs Apache, creates a webpage, and configures a cronjob — all via User Data.",tags:["EC2","UserData","Automation"],steps:[
+    {title:"Write User Data script",desc:"",code_text:'#!/bin/bash\nyum update -y\nyum install httpd -y\nsystemctl start httpd\nsystemctl enable httpd\necho "<h1>Auto-bootstrapped: $(hostname)</h1>" > /var/www/html/index.html\n# Cronjob to log uptime every hour\necho "0 * * * * echo $(date) >> /var/log/uptime.log" >> /etc/crontab'},
+    {title:"Launch with User Data",desc:"EC2 → Launch Instance → Advanced → User Data → paste script"},
+    {title:"Wait and verify",desc:"Wait 3-5 mins. Visit http://<PUBLIC_IP>. Should show hostname automatically."},
+    {title:"Check logs",desc:"",code_text:"sudo cat /var/log/cloud-init-output.log\n# Verify bootstrap ran correctly"},
+    {title:"Understand EC2 metadata",desc:"",code_text:"curl http://169.254.169.254/latest/meta-data/instance-id\ncurl http://169.254.169.254/latest/meta-data/public-ipv4"},
+  ]},
+
+  // STORAGE
+  {id:106,cat:"Storage",diff:"easy",title:"Create S3 bucket and upload files",desc:"Create an S3 bucket, upload files via console and CLI, and understand bucket naming rules.",tags:["S3","Storage"],steps:[
+    {title:"Create S3 bucket",desc:"S3 → Create Bucket. Name must be globally unique. Region: ap-south-1. Block all public access (keep default)."},
+    {title:"Upload a file via console",desc:"Click bucket → Upload → Add files. Upload any .txt file."},
+    {title:"Upload via CLI",desc:"",code_text:"aws s3 cp myfile.txt s3://my-bucket-name/\naws s3 ls s3://my-bucket-name/"},
+    {title:"Enable versioning",desc:"Bucket → Properties → Versioning → Enable. Upload same file again to see versions."},
+    {title:"Verify versions",desc:"",code_text:"aws s3api list-object-versions --bucket my-bucket-name"},
+  ]},
+  {id:107,cat:"Storage",diff:"easy",title:"Attach and use EBS volume on EC2",desc:"Create a 5GB EBS volume, attach it to EC2, format with ext4, mount at /data, and persist across reboots.",tags:["EBS","Storage"],steps:[
+    {title:"Create EBS Volume",desc:"EC2 → Volumes → Create. 5GB gp3, same AZ as your EC2."},
+    {title:"Attach to EC2",desc:"Right-click volume → Attach. Select your EC2 instance. Device: /dev/xvdf"},
+    {title:"Format filesystem",desc:"",code_text:"lsblk  # Confirm /dev/xvdf appears\nsudo mkfs -t ext4 /dev/xvdf"},
+    {title:"Mount it",desc:"",code_text:"sudo mkdir /data\nsudo mount /dev/xvdf /data\ndf -h"},
+    {title:"Make persistent",desc:"",code_text:"sudo blkid /dev/xvdf  # Copy UUID\necho 'UUID=<UUID> /data ext4 defaults,nofail 0 2' | sudo tee -a /etc/fstab"},
+    {title:"Test persistence",desc:"Write data, reboot EC2, verify /data still mounted and data intact"},
+  ]},
+  {id:108,cat:"Storage",diff:"medium",title:"Host static website on S3",desc:"Configure S3 bucket for static website hosting, upload HTML/CSS, make it publicly accessible.",tags:["S3","Static Website"],steps:[
+    {title:"Create bucket with website name",desc:"Bucket name must match your domain if using Route 53 (e.g. mysite.com)"},
+    {title:"Enable Static Website Hosting",desc:"Bucket → Properties → Static website hosting → Enable. Index: index.html"},
+    {title:"Create bucket policy for public read",desc:"",code_text:'{\n  "Version":"2012-10-17",\n  "Statement":[{\n    "Effect":"Allow",\n    "Principal":"*",\n    "Action":"s3:GetObject",\n    "Resource":"arn:aws:s3:::my-bucket/*"\n  }]\n}'},
+    {title:"Upload HTML",desc:"",code_text:'echo "<h1>My S3 Static Site</h1>" > index.html\naws s3 cp index.html s3://my-bucket/'},
+    {title:"Access the website",desc:"Copy the S3 website endpoint from Properties tab. Open in browser."},
+  ]},
+  {id:109,cat:"Storage",diff:"medium",title:"Set up EFS shared storage between 2 EC2s",desc:"Create EFS, mount on two EC2 instances, and verify files written on one appear on the other.",tags:["EFS","Storage","Shared"],steps:[
+    {title:"Create EFS",desc:"EFS → Create. Select LabVPC. Create mount targets in both subnets."},
+    {title:"Install EFS utils on both EC2s",desc:"",code_text:"sudo yum install amazon-efs-utils -y"},
+    {title:"Mount EFS on both",desc:"",code_text:"sudo mkdir /shared\nsudo mount -t efs <EFS_ID>:/ /shared"},
+    {title:"Write from EC2-1",desc:"",code_text:'echo "Written from Server 1: $(date)" | sudo tee /shared/test.txt'},
+    {title:"Read from EC2-2",desc:"SSH into second EC2 and run: cat /shared/test.txt — must show Server 1's message"},
+  ]},
+  {id:110,cat:"Storage",diff:"hard",title:"S3 lifecycle policy — auto archive to Glacier",desc:"Create S3 lifecycle rules to move objects to cheaper storage tiers automatically.",tags:["S3","Lifecycle","Glacier"],steps:[
+    {title:"Upload test files",desc:"",code_text:"for i in {1..10}; do echo \"File $i\" > file$i.txt && aws s3 cp file$i.txt s3://my-bucket/logs/; done"},
+    {title:"Create lifecycle rule",desc:"Bucket → Management → Lifecycle Rules → Create Rule"},
+    {title:"Configure transitions",desc:"",code_text:"Prefix: logs/\nAfter 30 days → S3 Standard-IA\nAfter 90 days → S3 Glacier\nAfter 365 days → Delete"},
+    {title:"Apply via CLI",desc:"",code_text:'aws s3api put-bucket-lifecycle-configuration \\\n  --bucket my-bucket \\\n  --lifecycle-configuration file://lifecycle.json'},
+    {title:"Verify",desc:"S3 → Management → Lifecycle. Confirm rule is Active. Check cost savings in S3 Storage Lens."},
+  ]},
+
+  // NETWORKING
+  {id:111,cat:"Networking",diff:"easy",title:"Create a VPC with public subnet",desc:"Build a VPC from scratch: CIDR block, public subnet, Internet Gateway, and route table.",tags:["VPC","Networking"],steps:[
+    {title:"Create VPC",desc:"VPC → Your VPCs → Create. CIDR: 10.0.0.0/16. Name: LabVPC"},
+    {title:"Create Public Subnet",desc:"VPC → Subnets → Create. CIDR: 10.0.1.0/24. Enable auto-assign public IP."},
+    {title:"Create Internet Gateway",desc:"VPC → Internet Gateways → Create. Attach to LabVPC."},
+    {title:"Create Route Table",desc:"VPC → Route Tables → Create. Add route: 0.0.0.0/0 → IGW. Associate with PublicSubnet."},
+    {title:"Test",desc:"Launch an EC2 in LabVPC PublicSubnet. Connect via EC2 Instance Connect. ping 8.8.8.8 should work."},
+  ]},
+  {id:112,cat:"Networking",diff:"easy",title:"Configure Security Groups correctly",desc:"Create Security Groups for a 3-tier architecture: ALB → EC2 → RDS with proper rules.",tags:["SecurityGroup","Networking"],steps:[
+    {title:"Create ALB Security Group",desc:"Allow HTTP (80) and HTTPS (443) from 0.0.0.0/0 (internet)"},
+    {title:"Create EC2 Security Group",desc:"Allow HTTP (80) from ALB SG only. Allow SSH (22) from your IP only."},
+    {title:"Create RDS Security Group",desc:"Allow MySQL (3306) from EC2 SG only. No public access."},
+    {title:"Verify chain",desc:"Traffic flow: Internet → ALB (80) → EC2 (80 from ALB SG) → RDS (3306 from EC2 SG)"},
+    {title:"Test isolation",desc:"Try connecting to RDS directly from internet — should fail. From EC2 — should succeed."},
+  ]},
+  {id:113,cat:"Networking",diff:"medium",title:"Set up NAT Gateway for private subnet",desc:"Configure NAT Gateway so private EC2 can access internet for updates without being exposed.",tags:["NAT","VPC","Networking"],steps:[
+    {title:"Allocate Elastic IP",desc:"EC2 → Elastic IPs → Allocate. Note the allocation ID."},
+    {title:"Create NAT Gateway",desc:"VPC → NAT Gateways → Create. Place in PUBLIC subnet. Attach Elastic IP."},
+    {title:"Update Private Route Table",desc:"Add route: 0.0.0.0/0 → NAT Gateway ID. Associate with PrivateSubnet."},
+    {title:"Test from private EC2",desc:"SSH into private EC2 via jump host. Run: curl https://aws.amazon.com — should succeed."},
+    {title:"Verify no inbound",desc:"Try to ping private EC2's private IP from internet — should fail. NAT only allows outbound."},
+  ]},
+  {id:114,cat:"Networking",diff:"medium",title:"Configure VPC Peering between two VPCs",desc:"Create two VPCs with non-overlapping CIDRs, establish peering, and test connectivity.",tags:["VPC","Peering","Networking"],steps:[
+    {title:"Create VPC-A and VPC-B",desc:"VPC-A: 10.0.0.0/16 | VPC-B: 172.16.0.0/16. Must NOT overlap."},
+    {title:"Create Peering Connection",desc:"VPC → Peering Connections → Create. Requester: VPC-A. Accepter: VPC-B."},
+    {title:"Accept the peering request",desc:"Select pending peering request → Actions → Accept"},
+    {title:"Update both route tables",desc:"VPC-A route table: 172.16.0.0/16 → PCX. VPC-B route table: 10.0.0.0/16 → PCX"},
+    {title:"Test connectivity",desc:"Launch EC2 in each VPC. From EC2-A: ping <EC2-B private IP>. Should succeed!"},
+  ]},
+  {id:115,cat:"Networking",diff:"hard",title:"Build complete 3-tier VPC architecture",desc:"Design and build a full production VPC: public (ALB), private app (EC2), private data (RDS) tiers.",tags:["VPC","Architecture","Networking"],steps:[
+    {title:"Plan IP addressing",desc:"VPC: 10.0.0.0/16\nPublic-1a: 10.0.1.0/24\nPublic-1b: 10.0.2.0/24\nApp-1a: 10.0.3.0/24\nApp-1b: 10.0.4.0/24\nData-1a: 10.0.5.0/24\nData-1b: 10.0.6.0/24",code_text:"# Create all 6 subnets plus VPC with CIDR 10.0.0.0/16"},
+    {title:"Create all security groups",desc:"ALB SG → EC2 App SG → RDS SG (each only allows from previous tier)"},
+    {title:"Deploy resources",desc:"ALB in public subnets. EC2 app servers in app subnets (no public IP). RDS in data subnets."},
+    {title:"Configure NAT for app tier",desc:"App tier EC2s need internet for patches. Route through NAT in public subnet."},
+    {title:"Test full flow",desc:"Browser → ALB DNS → ALB → EC2 app → RDS. Each hop must work. Direct RDS access from internet must fail."},
+  ]},
+
+  // DATABASE
+  {id:116,cat:"Database",diff:"easy",title:"Launch RDS MySQL with free tier",desc:"Create an RDS MySQL instance, connect from EC2, and run basic SQL commands.",tags:["RDS","MySQL","Database"],steps:[
+    {title:"Create RDS subnet group",desc:"RDS → Subnet Groups → Create. Select your private subnets."},
+    {title:"Create MySQL instance",desc:"RDS → Create Database → MySQL → Free Tier. Set username/password. Disable public access."},
+    {title:"Set Security Group",desc:"Create RDS SG: allow port 3306 from your EC2 SG only."},
+    {title:"Connect from EC2",desc:"",code_text:"sudo yum install mysql -y\nmysql -h <RDS_ENDPOINT> -u admin -p"},
+    {title:"Run SQL commands",desc:"",code_text:"show databases;\ncreate database myapp;\nuse myapp;\ncreate table users (id int AUTO_INCREMENT PRIMARY KEY, name varchar(100), email varchar(100));\ninsert into users (name, email) values ('AWS User', 'user@example.com');\nselect * from users;"},
+  ]},
+  {id:117,cat:"Database",diff:"medium",title:"Enable RDS Multi-AZ for high availability",desc:"Convert a single-AZ RDS to Multi-AZ deployment and understand automatic failover.",tags:["RDS","MultiAZ","HA"],steps:[
+    {title:"Understand Multi-AZ",desc:"Primary in AZ-1a, synchronous standby in AZ-1b. Auto-failover in 1-2 mins if primary fails."},
+    {title:"Modify existing RDS",desc:"RDS → Select DB → Modify → Enable Multi-AZ deployment. Apply immediately."},
+    {title:"Monitor modification",desc:"Takes 5-20 mins. Status changes from 'modifying' to 'available'."},
+    {title:"Test failover",desc:"RDS → Select DB → Actions → Reboot with Failover. Application reconnects automatically."},
+    {title:"Verify standby became primary",desc:"Check 'Events' tab in RDS console. You will see 'Multi-AZ instance failover completed'."},
+  ]},
+  {id:118,cat:"Database",diff:"medium",title:"Set up RDS automated backups and restore",desc:"Configure automated backups on RDS and practice point-in-time recovery.",tags:["RDS","Backup","Recovery"],steps:[
+    {title:"Enable automated backups",desc:"RDS → Modify → Backup retention: 7 days. Backup window: 02:00-03:00 UTC."},
+    {title:"Create manual snapshot",desc:"RDS → Select DB → Actions → Take Snapshot. Name: manual-backup-lab"},
+    {title:"Simulate data loss",desc:"",code_text:"drop table users;  # Oops! Data deleted"},
+    {title:"Restore from snapshot",desc:"RDS → Snapshots → Select your snapshot → Restore. Creates NEW DB instance."},
+    {title:"Verify restoration",desc:"Connect to restored DB. Run: select * from users; — data should be back!"},
+  ]},
+  {id:119,cat:"Database",diff:"hard",title:"Connect application to RDS using environment variables",desc:"Write a Python Flask app on EC2 that reads from RDS using env vars — no hardcoded credentials.",tags:["RDS","Python","Security"],steps:[
+    {title:"Install Python dependencies on EC2",desc:"",code_text:"sudo yum install python3 python3-pip -y\npip3 install flask pymysql"},
+    {title:"Create Flask app",desc:"",code_text:'from flask import Flask, jsonify\nimport pymysql, os\napp = Flask(__name__)\n\ndef get_db():\n    return pymysql.connect(\n        host=os.environ["DB_HOST"],\n        user=os.environ["DB_USER"],\n        password=os.environ["DB_PASS"],\n        database=os.environ["DB_NAME"]\n    )\n\n@app.route("/users")\ndef users():\n    db = get_db()\n    cur = db.cursor()\n    cur.execute("SELECT * FROM users")\n    return jsonify(cur.fetchall())\n\nif __name__ == "__main__":\n    app.run(host="0.0.0.0", port=80)'},
+    {title:"Set environment variables",desc:"",code_text:'export DB_HOST="your-rds-endpoint"\nexport DB_USER="admin"\nexport DB_PASS="yourpassword"\nexport DB_NAME="myapp"\nsudo -E python3 app.py'},
+    {title:"Test the API",desc:"curl http://<EC2_PUBLIC_IP>/users — should return JSON from RDS"},
+    {title:"Best practice — use SSM Parameter Store",desc:"",code_text:"aws ssm put-parameter --name /myapp/db-password --value 'pass' --type SecureString\n# In app: use boto3 to fetch at runtime"},
+  ]},
+
+  // SECURITY
+  {id:120,cat:"Security",diff:"easy",title:"Create IAM user with limited permissions",desc:"Create an IAM user who can only view EC2 — not launch, stop, or terminate instances.",tags:["IAM","Security"],steps:[
+    {title:"Create custom policy",desc:"IAM → Policies → Create. Paste this JSON:",code_text:'{\n  "Version":"2012-10-17",\n  "Statement":[{\n    "Effect":"Allow",\n    "Action":["ec2:Describe*"],\n    "Resource":"*"\n  }]\n}'},
+    {title:"Create IAM user",desc:"IAM → Users → Create. Enable console access. Set temporary password."},
+    {title:"Attach policy",desc:"Attach the EC2ReadOnly custom policy to the user."},
+    {title:"Test as IAM user",desc:"Login as IAM user. Try to view EC2 instances — should work. Try to terminate one — should fail with AccessDenied."},
+    {title:"Verify in CloudTrail",desc:"CloudTrail → Event History. You should see the denied TerminateInstances event."},
+  ]},
+  {id:121,cat:"Security",diff:"easy",title:"Enable MFA on AWS account",desc:"Set up Multi-Factor Authentication on root and IAM user accounts for security.",tags:["IAM","MFA","Security"],steps:[
+    {title:"Enable MFA on root account",desc:"Account menu → Security Credentials → MFA → Assign MFA device"},
+    {title:"Choose virtual MFA",desc:"Download Google Authenticator or Authy. Scan the QR code."},
+    {title:"Enter two consecutive codes",desc:"Type the first code, wait 30 seconds, type second code. MFA activated."},
+    {title:"Enable MFA for IAM user",desc:"IAM → Users → Select user → Security Credentials → Assign MFA device"},
+    {title:"Test MFA login",desc:"Sign out. Sign back in. After password, you must enter 6-digit code from authenticator app."},
+  ]},
+  {id:122,cat:"Security",diff:"medium",title:"Configure Network ACLs vs Security Groups",desc:"Understand the difference between NACLs (stateless) and Security Groups (stateful). Configure both.",tags:["NACL","SecurityGroup","Security"],steps:[
+    {title:"Understand the difference",desc:"Security Group: Stateful (return traffic auto-allowed), applied to ENI. NACL: Stateless (must allow both directions), applied to subnet."},
+    {title:"Create a Network ACL",desc:"VPC → Network ACLs → Create. Associate with your public subnet."},
+    {title:"Add inbound rules",desc:"",code_text:"Rule 100: Allow HTTP (80) from 0.0.0.0/0\nRule 110: Allow HTTPS (443) from 0.0.0.0/0\nRule 120: Allow SSH (22) from your IP\nRule 200: Allow ephemeral ports 1024-65535 (for return traffic!)"},
+    {title:"Add outbound rules",desc:"",code_text:"Rule 100: Allow HTTP (80) to 0.0.0.0/0\nRule 110: Allow HTTPS (443) to 0.0.0.0/0\nRule 120: Allow ephemeral ports 1024-65535 (required for stateless!)"},
+    {title:"Test and compare",desc:"Try blocking a specific IP in NACL. Unlike SG, NACL can explicitly DENY. Verify SG cannot explicitly deny — only allow."},
+  ]},
+  {id:123,cat:"Security",diff:"medium",title:"Implement S3 bucket policies and encryption",desc:"Lock down an S3 bucket with a policy, enable server-side encryption, and set up access logging.",tags:["S3","Encryption","Security"],steps:[
+    {title:"Create restrictive bucket policy",desc:"Allow access only from a specific VPC endpoint or IP:",code_text:'{\n  "Version":"2012-10-17",\n  "Statement":[{\n    "Effect":"Deny",\n    "Principal":"*",\n    "Action":"s3:*",\n    "Resource":"arn:aws:s3:::my-bucket/*",\n    "Condition":{"StringNotEquals":{"aws:sourceVpce":"vpce-xxxxx"}}\n  }]\n}'},
+    {title:"Enable SSE-S3 encryption",desc:"Bucket → Properties → Default Encryption → Enable. AES-256 or AWS-KMS."},
+    {title:"Enable access logging",desc:"Bucket → Properties → Server access logging → Enable. Specify log bucket."},
+    {title:"Test encryption",desc:"Upload a file. Download it. Check object properties — Encryption field should show SSE-S3."},
+    {title:"Review access logs",desc:"Wait 15 mins. Check log bucket. You will see every GET/PUT request with requester IP."},
+  ]},
+  {id:124,cat:"Security",diff:"hard",title:"Set up AWS CloudTrail for audit logging",desc:"Enable CloudTrail to log all API calls across your account for security auditing and compliance.",tags:["CloudTrail","Audit","Security"],steps:[
+    {title:"Create CloudTrail trail",desc:"CloudTrail → Create Trail. Name: AccountAuditTrail. Apply to all regions."},
+    {title:"Configure S3 logging",desc:"Create new S3 bucket for logs. Enable SSE-KMS encryption. Enable log file validation."},
+    {title:"Enable CloudWatch integration",desc:"CloudTrail → Trail → Configure CloudWatch Logs. Create new log group: /cloudtrail/audit"},
+    {title:"Create CloudWatch alarm for root login",desc:"",code_text:'# Filter pattern for root login:\n{ $.userIdentity.type = "Root" && $.eventName = "ConsoleLogin" }\n# Create alarm → SNS topic → Email notification'},
+    {title:"Test and verify",desc:"Make an API call (create S3 bucket). Wait 5 mins. CloudTrail → Event history. Find your event. Check S3 logs bucket — .json.gz files should appear."},
+  ]},
+];
+
+// ── AWS LABS RENDER ──
+const awsLabDone = {};
+let awsLabFilter = 'all';
+
+function renderAwsLabs() {
+  const grid = document.getElementById('awsLabsGrid');
+  if (!grid) return;
+  grid.innerHTML = AWS_LABS.map((lab, i) => `
+    <div class="mod-card" onclick="openAwsLab(${i})">
+      <div class="mod-top">
+        <div class="mod-icon" style="background:${lab.bg};font-size:22px">${lab.emoji}</div>
+        <div class="mod-info">
+          <h3>Lab ${lab.num} — ${lab.title}</h3>
+          <p>${lab.sub}</p>
+        </div>
+      </div>
+      <div class="mod-bottom">
+        <span class="mod-pill" style="background:${lab.diffBg};color:${lab.diffColor};font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px">${lab.difficulty}</span>
+        <span class="mod-pill pill-lab">🔬 ${lab.steps.length} Steps</span>
+        <span class="mod-status ${awsLabDone[i]?'s-done':'s-todo'}" id="alms${i}">${awsLabDone[i]?'✅ DONE':'TODO'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAwsLab(i) {
+  const lab = AWS_LABS[i];
+  document.getElementById('modalIcon').style.cssText = `background:${lab.bg};font-size:22px`;
+  document.getElementById('modalIcon').textContent = lab.emoji;
+  document.getElementById('modalTitle').textContent = `Lab ${lab.num} — ${lab.title}`;
+  document.getElementById('modalSub').textContent = lab.sub;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="lesson-nav">
+      <button class="lnav-btn active" onclick="switchLesson(this,'alp-overview-${i}')">📖 Overview</button>
+      <button class="lnav-btn" onclick="switchLesson(this,'alp-steps-${i}')">🔬 Lab Steps</button>
+    </div>
+    <div class="lpane active" id="alp-overview-${i}">
+      <div class="overview-box">
+        <h4>📘 Lab Overview</h4>
+        <p>${lab.overview}</p>
+      </div>
+      <div class="objectives">
+        <h4>🎯 What You Will Do</h4>
+        <div class="obj-list">
+          ${lab.objectives.map(o=>`<div class="obj-item"><span class="obj-check">✔</span><span>${o}</span></div>`).join('')}
+        </div>
+      </div>
+      <div style="margin-top:20px;text-align:center">
+        <button onclick="switchLesson(document.querySelectorAll('#modalBody .lnav-btn')[1],'alp-steps-${i}')" style="padding:12px 28px;background:linear-gradient(135deg,${lab.color},#7c3aed);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer">Start Lab Steps →</button>
+      </div>
+    </div>
+    <div class="lpane" id="alp-steps-${i}">
+      <div class="lab-intro">
+        <div class="lab-intro-icon">⚠️</div>
+        <div><strong>Before You Start:</strong> Make sure AWS CLI is configured (<code>aws configure</code>) and you have appropriate IAM permissions for this lab.</div>
+      </div>
+      ${lab.steps.map(s=>`
+        <div class="step-block">
+          <div class="step-hdr">
+            <div class="step-num">0${s.n}</div>
+            <div class="step-txt">
+              <h4>${s.title}</h4>
+              ${s.why?`<p>🎯 <em>${s.why}</em></p>`:''}
+            </div>
+          </div>
+          <div class="step-body">
+            ${s.body?`<p>${s.body}</p>`:''}
+            ${s.note?`<div class="note-box"><strong>💡 NOTE</strong>${s.note}</div>`:''}
+            ${s.warn?`<div class="warn-box"><strong>⚠️ WARNING</strong>${s.warn}</div>`:''}
+            <div class="code-wrap">
+              <div class="code-top">
+                <div class="code-lang"><span class="lang-dot dot-${s.lang||'bash'}"></span>${(s.lang||'bash').toUpperCase()}</div>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>${escHtml(s.code)}</pre>
+            </div>
+            ${s.tip?`<div class="tip-box"><strong>✅ PRO TIP</strong>${s.tip}</div>`:''}
+          </div>
+        </div>
+        ${s.n<lab.steps.length?'<div class="step-sep"></div>':''}`).join('')}
+      <div style="margin-top:24px;text-align:center">
+        <button onclick="markAwsLabDone(${i})" style="padding:14px 32px;background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(5,150,105,.3)">✅ Mark Lab Complete & Earn XP</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function markAwsLabDone(i) {
+  if (!awsLabDone[i]) {
+    awsLabDone[i] = true;
+    addXP(100, `AWS Lab ${i+1} completed`);
+    showToast('🎉 AWS Lab complete! +100 XP');
+    const el = document.getElementById(`alms${i}`);
+    if (el) { el.textContent='✅ DONE'; el.className='mod-status s-done'; }
+    checkBadges();
+  }
+}
+
+// ── AWS TASKS RENDER ──
+const awsTaskDone = {};
+let awsCatFilter = 'all';
+let awsDiffFilter = 'all';
+
+function renderAwsTasks() {
+  const grid = document.getElementById('awsTasksGrid');
+  if (!grid) return;
+  let list = AWS_TASKS;
+  if (awsCatFilter !== 'all') list = list.filter(t => t.cat === awsCatFilter);
+  if (awsDiffFilter !== 'all') list = list.filter(t => t.diff === awsDiffFilter);
+
+  const catColors = {Compute:'#f59e0b',Storage:'#0891b2',Networking:'#7c3aed',Database:'#059669',Security:'#dc2626'};
+  const catBgs = {Compute:'#fef3c7',Storage:'#cffafe',Networking:'#ede9fe',Database:'#d1fae5',Security:'#fee2e2'};
+
+  grid.innerHTML = list.map(t => `
+    <div class="task-card" onclick="openAwsTaskModal(${t.id})">
+      <div class="task-check ${awsTaskDone[t.id]?'done':''}" onclick="event.stopPropagation();toggleAwsTask(${t.id},this)">
+        ${awsTaskDone[t.id]?'<span style="color:#fff;font-size:14px">✓</span>':''}
+      </div>
+      <div class="task-main">
+        <div class="task-head">
+          <span style="background:${catBgs[t.cat]};color:${catColors[t.cat]};font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1px solid ${catColors[t.cat]}33">${t.cat}</span>
+          <span class="diff-badge db-${t.diff}">${t.diff.toUpperCase()}</span>
+          <h4>${t.title}</h4>
+        </div>
+        <p>${t.desc}</p>
+        <div class="task-tags">${t.tags.map(tg=>`<span class="ttag">${tg}</span>`).join('')}</div>
+        <div style="margin-top:8px;font-size:11px;font-weight:700;color:var(--blue)">👆 Click for step-by-step guide →</div>
+      </div>
+    </div>
+  `).join('') || '<div style="padding:40px;text-align:center;color:var(--muted);font-size:14px">No tasks match your filter.</div>';
+}
+
+function openAwsTaskModal(id) {
+  const t = AWS_TASKS.find(x => x.id === id);
+  if (!t) return;
+  const catColors = {Compute:'#f59e0b',Storage:'#0891b2',Networking:'#7c3aed',Database:'#059669',Security:'#dc2626'};
+  const catBgs = {Compute:'#fef3c7',Storage:'#cffafe',Networking:'#ede9fe',Database:'#d1fae5',Security:'#fee2e2'};
+  const diffColor = t.diff==='easy'?'#059669':t.diff==='medium'?'#d97706':'#dc2626';
+  const diffBg = t.diff==='easy'?'#d1fae5':t.diff==='medium'?'#fef3c7':'#fee2e2';
+  const stepsHTML = (t.steps||[]).map((s,i)=>`
+    <div class="task-step">
+      <div class="task-step-num">${i+1}</div>
+      <div class="task-step-body">
+        <div class="task-step-title">${s.title}</div>
+        ${s.desc?`<div class="task-step-desc">${s.desc}</div>`:''}
+        ${s.code_text?`<div class="task-code">${escHtml(s.code_text)}</div>`:''}
+      </div>
+    </div>`).join('');
+
+  document.getElementById('modalIcon').style.cssText = `background:${catBgs[t.cat]};font-size:20px`;
+  document.getElementById('modalIcon').textContent = t.cat==='Compute'?'⚡':t.cat==='Storage'?'💾':t.cat==='Networking'?'🌐':t.cat==='Database'?'🗄️':'🔐';
+  document.getElementById('modalTitle').textContent = t.title;
+  document.getElementById('modalSub').textContent = `${t.cat} · ${t.diff.toUpperCase()} · ${t.tags.join(', ')}`;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="task-modal-hdr">
+      <span style="background:${catBgs[t.cat]};color:${catColors[t.cat]};font-size:11px;font-weight:800;padding:4px 12px;border-radius:99px">${t.cat}</span>
+      <span class="task-diff-badge" style="background:${diffBg};color:${diffColor}">${t.diff.toUpperCase()}</span>
+      <div style="flex:1">
+        <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:10px">${t.desc}</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">${t.tags.map(tg=>`<span class="ttag">${tg}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div style="margin-bottom:12px;display:flex;align-items:center;gap:10px">
+      <div style="font-size:14px;font-weight:800;color:var(--text)">📋 Step-by-Step Guide</div>
+      <div style="font-size:12px;color:var(--muted)">${t.steps?.length||0} steps</div>
+      <div class="task-check ${awsTaskDone[t.id]?'done':''}" style="margin-left:auto" onclick="toggleAwsTask(${t.id},this)">
+        ${awsTaskDone[t.id]?'<span style="color:#fff;font-size:14px">✓</span>':''}
+      </div>
+      <span style="font-size:13px;font-weight:700;color:var(--muted)">Mark done (+10 XP)</span>
+    </div>
+    <div>${stepsHTML}</div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function toggleAwsTask(id, el) {
+  if (awsTaskDone[id]) {
+    delete awsTaskDone[id];
+    el.classList.remove('done');
+    el.innerHTML='';
+    xpData.total = Math.max(0, xpData.total - 10);
+    updateXPDisplay();
+  } else {
+    awsTaskDone[id] = true;
+    el.classList.add('done');
+    el.innerHTML='<span style="color:#fff;font-size:14px">✓</span>';
+    addXP(10, `AWS Task ${id} done`);
+    showToast('✅ AWS Task complete! +10 XP');
+    checkBadges();
+  }
+  renderAwsTasks();
+}
+
+function filterAwsTasks(val, type, btn) {
+  if (type === 'cat') {
+    awsCatFilter = val;
+    document.querySelectorAll('#awsCatFilterBar .filter-btn').forEach(b => b.classList.remove('on'));
+    if(btn) btn.classList.add('on');
+  } else {
+    awsDiffFilter = awsDiffFilter === val ? 'all' : val;
+    document.querySelectorAll('#awsDiffFilterBar .filter-btn').forEach(b => b.classList.remove('on'));
+    if(awsDiffFilter !== 'all' && btn) btn.classList.add('on');
+  }
+  renderAwsTasks();
+}
+
+// ── INIT ──
+renderModules();
+renderTasks();
+renderCheckpoints();
+renderLinux();
+renderAssessment();
+renderAwsLabs();
+renderAwsTasks();
 if(localStorage.getItem('bestStreak')<streakData.current) localStorage.setItem('bestStreak',streakData.current);
 </script>
 </body>
